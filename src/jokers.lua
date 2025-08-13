@@ -8,7 +8,8 @@ SMODS.Joker{ --Golden Bar
     loc_txt = {
         ['name'] = 'Golden Bar',
         ['text'] = {
-            [1] = 'Earn {C:money}$10{} when {C:attention}boss blind{} is defeated'
+            [1] = 'Earn {C:money}$10{} when',
+            [2] = '{C:attention}boss blind{} is defeated'
         },
         ['unlock'] = {
             [1] = ''
@@ -47,8 +48,10 @@ SMODS.Joker{ --Steel Bar
     loc_txt = {
         ['name'] = 'Steel Bar',
         ['text'] = {
-            [1] = 'Gives {X:chips,C:white}X0.1{} Chips for each {C:attention}Steel Card{} in your {C:attention}full deck{}',
-            [2] = '{C:inactive}(Currently{} {X:chips,C:white}X#1#{} {C:inactive}Chips){}'
+            [1] = 'Gives {X:chips,C:white}X0.1{} Chips',
+            [2] = 'for each {C:attention}Steel Card{}',
+            [3] = 'in your {C:attention}full deck{}',
+            [4] = '{C:inactive}(Currently{} {X:chips,C:white}X#1#{} {C:inactive}Chips){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -91,8 +94,9 @@ SMODS.Joker{ --Three-faces Even
     loc_txt = {
         ['name'] = 'Three-faces Even',
         ['text'] = {
-            [1] = 'Retrigger all cards with {C:attention}even {}rank {C:attention}2{} additional times',
-            [2] = '{C:inactive}(10, 8, 6, 4, 2){}{}'
+            [1] = 'Retrigger all cards with',
+            [2] = '{C:attention}even {}rank {C:attention}2{} additional times',
+            [3] = '{C:inactive}(10, 8, 6, 4, 2){}{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -134,8 +138,9 @@ SMODS.Joker{ --Two-faces Odd
     loc_txt = {
         ['name'] = 'Two-faces Odd',
         ['text'] = {
-            [1] = 'Retrigger all cards with {C:attention}odd {}rank {C:attention}1{} additional times',
-            [2] = '{C:inactive}(A, 9, 7, 5, 3){}{}'
+            [1] = 'Retrigger all cards with',
+            [2] = '{C:attention}odd {}rank {C:attention}1{} additional times',
+            [3] = '{C:inactive}(A, 9, 7, 5, 3){}{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -176,7 +181,8 @@ SMODS.Joker{ --Crown
     loc_txt = {
         ['name'] = 'Crown',
         ['text'] = {
-            [1] = 'Each {C:attention}Jack{} held in hand becomes a {C:attention}King{}'
+            [1] = 'Each {C:attention}Jack{} held in hand',
+            [2] = 'becomes a {C:attention}King{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
