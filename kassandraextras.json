@@ -1,0 +1,9 @@
+{
+  "id": "KassandraExtras",
+  "name": "Kassandra's Extras",
+  "author": ["Kassandra"],
+  "description": "oui",
+  "prefix": "kassandra",
+  "main_file": "kassandraextras.lua",
+  "version": "1.0.0"
+}
