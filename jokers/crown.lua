@@ -14,7 +14,7 @@ SMODS.Joker{ --Crown
         }
     },
     pos = {
-        x = 0,
+        x = 5,
         y = 0
     },
     cost = 6,

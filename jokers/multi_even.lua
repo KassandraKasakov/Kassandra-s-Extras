@@ -16,7 +16,7 @@ SMODS.Joker{ --Three-faces Even
         }
     },
     pos = {
-        x = 3,
+        x = 2,
         y = 0
     },
     cost = 4,

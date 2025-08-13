@@ -16,7 +16,7 @@ SMODS.Joker{ --Steel Bar
         }
     },
     pos = {
-        x = 2,
+        x = 1   ,
         y = 0
     },
     cost = 5,

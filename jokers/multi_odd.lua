@@ -16,7 +16,7 @@ SMODS.Joker{ --Two-faces Odd
         }
     },
     pos = {
-        x = 4,
+        x = 3,
         y = 0
     },
     cost = 3,
