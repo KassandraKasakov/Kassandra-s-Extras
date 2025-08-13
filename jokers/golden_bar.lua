@@ -23,7 +23,7 @@ SMODS.Joker{ --Golden Bar
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     atlas = 'CustomJokers',
 
