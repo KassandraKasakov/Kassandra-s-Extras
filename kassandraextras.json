@@ -5,5 +5,11 @@
   "description": "oui",
   "prefix": "kassandra",
   "main_file": "kassandraextras.lua",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "priority": 0,
+  "badge_colour": "31ceac",
+  "badge_text_colour": "FFFFFF",
+  "dependencies": [
+    "Steamodded (>=1.0.0~BETA-0711a)"
+  ]
 }
