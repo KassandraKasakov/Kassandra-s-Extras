@@ -26,7 +26,7 @@ SMODS.Joker{ --Steel Bar
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'CustomJokers',
+    atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1}}

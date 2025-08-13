@@ -24,7 +24,7 @@ SMODS.Joker{ --Crown
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'CustomJokers',
+    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round  and not context.blueprint then
