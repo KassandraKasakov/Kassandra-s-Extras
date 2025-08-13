@@ -26,7 +26,7 @@ SMODS.Joker{ --Three-faces Even
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'CustomJokers',
+    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then

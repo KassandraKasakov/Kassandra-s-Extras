@@ -25,7 +25,7 @@ SMODS.Joker{ --Golden Bar
     perishable_compat = true,
     unlocked = false,
     discovered = false,
-    atlas = 'CustomJokers',
+    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and G.GAME.blind.boss  then

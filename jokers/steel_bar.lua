@@ -25,7 +25,7 @@ SMODS.Joker{ --Steel Bar
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'CustomJokers',
+    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
