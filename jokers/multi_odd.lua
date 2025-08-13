@@ -9,14 +9,14 @@ SMODS.Joker{ --Two-faces Odd
         ['name'] = 'Two-faces Odd',
         ['text'] = {
             [1] = 'Retrigger all cards with {C:attention}odd {}rank {C:attention}1{} additional times',
-            [2] = '{s:0.8}(A, 9, 7, 5, 3){}'
+            [2] = '{C:inactive}(A, 9, 7, 5, 3){}{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 3,
+        x = 4,
         y = 0
     },
     cost = 3,
@@ -26,7 +26,7 @@ SMODS.Joker{ --Two-faces Odd
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
+    atlas = 'CustomJokers',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then

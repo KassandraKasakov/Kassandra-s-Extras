@@ -9,14 +9,14 @@ SMODS.Joker{ --Three-faces Even
         ['name'] = 'Three-faces Even',
         ['text'] = {
             [1] = 'Retrigger all cards with {C:attention}even {}rank {C:attention}2{} additional times',
-            [2] = '{s:0.8}(10, 8, 6, 4, 2){}'
+            [2] = '{C:inactive}(10, 8, 6, 4, 2){}{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 2,
+        x = 3,
         y = 0
     },
     cost = 4,
@@ -26,7 +26,7 @@ SMODS.Joker{ --Three-faces Even
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
+    atlas = 'CustomJokers',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
