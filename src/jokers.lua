@@ -14,6 +14,7 @@ SMODS.Joker{ --Golden Bar
             [1] = ''
         }
     },
+    atlas = 'Jokers',
     pos = {
         x = 0,
         y = 0
@@ -25,7 +26,6 @@ SMODS.Joker{ --Golden Bar
     perishable_compat = true,
     unlocked = false,
     discovered = false,
-    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
@@ -54,6 +54,7 @@ SMODS.Joker{ --Steel Bar
             [1] = 'Unlocked by default.'
         }
     },
+    atlas = 'Jokers',
     pos = {
         x = 1   ,
         y = 0
@@ -65,7 +66,6 @@ SMODS.Joker{ --Steel Bar
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1}}
@@ -98,6 +98,7 @@ SMODS.Joker{ --Three-faces Even
             [1] = 'Unlocked by default.'
         }
     },
+    atlas = 'Jokers',
     pos = {
         x = 2,
         y = 0
@@ -109,7 +110,6 @@ SMODS.Joker{ --Three-faces Even
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
@@ -141,6 +141,7 @@ SMODS.Joker{ --Two-faces Odd
             [1] = 'Unlocked by default.'
         }
     },
+    atlas = 'Jokers',
     pos = {
         x = 3,
         y = 0
@@ -152,7 +153,6 @@ SMODS.Joker{ --Two-faces Odd
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
@@ -182,6 +182,7 @@ SMODS.Joker{ --Crown
             [1] = 'Unlocked by default.'
         }
     },
+    atlas = 'Jokers',
     pos = {
         x = 4,
         y = 0
@@ -193,7 +194,6 @@ SMODS.Joker{ --Crown
     perishable_compat = true,
     unlocked = true,
     discovered = false,
-    atlas = 'Jokers',
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.hand and not context.end_of_round  and not context.blueprint then
