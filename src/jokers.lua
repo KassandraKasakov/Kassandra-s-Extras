@@ -388,6 +388,9 @@ SMODS.Joker{ --Sadey Face
     
     return rankCount == 0
 end)() then
+                return {
+                    mult = card.ability.extra.mult
+                }
             end
         end
     end
