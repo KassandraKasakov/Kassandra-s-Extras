@@ -220,7 +220,7 @@ SMODS.Joker{ --Blank Joker
     key = "blankjoker",
     config = {
         extra = {
-            stonecardsindeck = 1
+            blankcardsindeck = 1
         }
     },
     loc_txt = {
@@ -253,13 +253,13 @@ SMODS.Joker{ --Blank Joker
     end,
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.stonecardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_stone') then count = count + 1 end end; return count end)()) * 0.75}}
+        return {vars = {card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_blank') then count = count + 1 end end; return count end)()) * 0.75}}
     end,
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
                 return {
-                    Xmult = card.ability.extra.stonecardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_stone') then count = count + 1 end end; return count end)()) * 0.75
+                    Xmult = card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_blank') then count = count + 1 end end; return count end)()) * 0.75
                 }
         end
     end
@@ -321,9 +321,9 @@ SMODS.Joker{ --Sadey Face
     loc_txt = {
         ['name'] = 'Sadey Face',
         ['text'] = {
-            [1] = 'Hands played without a',
-            [2] = '{C:attention}face {}card give',
-            [3] = '{C:red}+6{} Mult when scored'
+            [1] = 'Played {C:attention}numbered{} cards',
+            [2] = 'give {C:red}+2{} Mult',
+            [3] = 'when scored'
         },
         ['unlock'] = {
             [1] = ''
@@ -343,18 +343,8 @@ SMODS.Joker{ --Sadey Face
     discovered = true,
 
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main  then
-            if (function()
-    local rankFound = true
-    for i, c in ipairs(context.full_hand) do
-        if c:is_face() then
-            rankFound = false
-            break
-        end
-    end
-    
-    return rankFound
-end)() then
+        if context.individual and context.cardarea == G.play  then
+            if ((context.other_card:get_id() == 2 or context.other_card:get_id() == 4 or context.other_card:get_id() == 6 or context.other_card:get_id() == 8 or context.other_card:get_id() == 10) or (context.other_card:get_id() == 14 or context.other_card:get_id() == 3 or context.other_card:get_id() == 5 or context.other_card:get_id() == 7 or context.other_card:get_id() == 9)) then
                 return {
                     mult = card.ability.extra.mult
                 }
