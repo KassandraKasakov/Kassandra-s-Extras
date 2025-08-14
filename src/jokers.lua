@@ -216,56 +216,6 @@ SMODS.Joker{ --Crown
 }
 
 
-SMODS.Joker{ --Blank Joker
-    key = "blankjoker",
-    config = {
-        extra = {
-            blankcardsindeck = 1
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Blank Joker',
-        ['text'] = {
-            [1] = 'Gives {X:mult,C:white}X0.75{} Mult for',
-            [2] = 'each {C:attention}Blank Card{}',
-            [3] = 'in your {C:attention}full deck{}',
-            [4] = '{C:inactive}(Currently{} {X:mult,C:white}X#1#{} {C:inactive}Mult){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
-    atlas = 'Jokers',
-    pos = {
-        x = 5,
-        y = 0
-    },
-    cost = 5,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    unlocked = true,
-    discovered = true,
-
-    in_pool = function(self, args)
-        return args.source ~= 'sho'
-    end,
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_blank') then count = count + 1 end end; return count end)()) * 0.75}}
-    end,
-
-    calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    Xmult = card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_blank') then count = count + 1 end end; return count end)()) * 0.75
-                }
-        end
-    end
-}
-
-
 SMODS.Joker{ --Time Capsule
     key = "time_capsule",
     config = {
@@ -312,17 +262,20 @@ SMODS.Joker{ --Time Capsule
     end
 }
 
+
 SMODS.Joker{ --Sadey Face
     key = "sadey_face",
     config = {
         extra = {
+            mult = 2,
+            mult2 = 2
         }
     },
     loc_txt = {
         ['name'] = 'Sadey Face',
         ['text'] = {
-            [1] = 'Played {C:attention}numbered{} cards',
-            [2] = 'give {C:red}+2{} Mult',
+            [1] = 'Played {C:orange}non-face{} cards',
+            [2] = 'give {C:mult}+2{} Mult',
             [3] = 'when scored'
         },
         ['unlock'] = {
@@ -344,9 +297,13 @@ SMODS.Joker{ --Sadey Face
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
-            if ((context.other_card:get_id() == 2 or context.other_card:get_id() == 4 or context.other_card:get_id() == 6 or context.other_card:get_id() == 8 or context.other_card:get_id() == 10) or (context.other_card:get_id() == 14 or context.other_card:get_id() == 3 or context.other_card:get_id() == 5 or context.other_card:get_id() == 7 or context.other_card:get_id() == 9)) then
+            if (context.other_card:get_id() == 2 or context.other_card:get_id() == 4 or context.other_card:get_id() == 6 or context.other_card:get_id() == 8 or context.other_card:get_id() == 10) then
                 return {
                     mult = card.ability.extra.mult
+                }
+            elseif (context.other_card:get_id() == 14 or context.other_card:get_id() == 3 or context.other_card:get_id() == 5 or context.other_card:get_id() == 7 or context.other_card:get_id() == 9) then
+                return {
+                    mult = card.ability.extra.mult2
                 }
             end
         end
