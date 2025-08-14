@@ -379,14 +379,15 @@ SMODS.Joker{ --Sadey Face
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             if (function()
-    local rankCount = 0
-    for i, c in ipairs(context.scoring_hand) do
+    local rankFound = true
+    for i, c in ipairs(context.full_hand) do
         if c:is_face() then
-            rankCount = rankCount + 1
+            rankFound = false
+            break
         end
     end
     
-    return rankCount == 0
+    return rankFound
 end)() then
                 return {
                     mult = card.ability.extra.mult
