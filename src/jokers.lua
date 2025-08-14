@@ -214,3 +214,181 @@ SMODS.Joker{ --Crown
         end
     end
 }
+
+
+SMODS.Joker{ --Blank Joker
+    key = "blankjoker",
+    config = {
+        extra = {
+            stonecardsindeck = 1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Blank Joker',
+        ['text'] = {
+            [1] = 'Gives {X:mult,C:white}X0.75{} Mult for',
+            [2] = 'each {C:attention}Blank Card{}',
+            [3] = 'in your {C:attention}full deck{}',
+            [4] = '{C:inactive}(Currently{} {X:mult,C:white}X#1#{} {C:inactive}Mult){}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 5,
+        y = 0
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    in_pool = function(self, args)
+        return args.source ~= 'sho'
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.stonecardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_stone') then count = count + 1 end end; return count end)()) * 0.75}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+                return {
+                    Xmult = card.ability.extra.stonecardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_stone') then count = count + 1 end end; return count end)()) * 0.75
+                }
+        end
+    end
+}
+
+
+SMODS.Joker{ --Time Capsule
+    key = "time_capsule",
+    config = {
+        extra = {
+            levels = 1,
+            odds = 4,
+            levels2 = 1,
+            most = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Time Capsule',
+        ['text'] = {
+            [1] = 'When {C:attention}Blind {}is skipped',
+            [2] = 'upgrade a random {C:attention}poker hand{}',
+            [3] = '{C:green}1 in 4{} chance to upgrade',
+            [4] = 'level of your most',
+            [5] = 'played {C:attention}poker hand{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 6,
+        y = 0
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.skip_blind  then
+            if true then
+                available_hands = {}
+        for hand, value in pairs(G.GAME.hands) do
+          if value.visible and value.level >= to_big(1) then
+            table.insert(available_hands, hand)
+          end
+        end
+        target_hand = #available_hands > 0 and pseudorandom_element(available_hands, pseudoseed('level_up_hand')) or "High Card"
+                return {
+                    level_up = card.ability.extra.levels,
+      level_up_hand = target_hand,
+                    message = localize('k_level_up_ex')
+                ,
+                    func = function()
+                        if SMODS.pseudorandom_probability(card, 'group_0_8ba5381e', 1, card.ability.extra.odds, 'j_modprefix_time_capsule') then
+                      temp_played = 0
+        temp_order = math.huge
+        for hand, value in pairs(G.GAME.hands) do 
+          if value.played > temp_played and value.visible then
+            temp_played = value.played
+            temp_order = value.order
+            target_hand2 = hand
+          else if value.played == temp_played and value.visible then
+            if value.order < temp_order then
+              temp_order = value.order
+              target_hand2 = hand
+            end
+          end
+          end
+        end
+                        SMODS.calculate_effect({level_up = card.ability.extra.levels2,
+      level_up_hand = target_hand2}, card)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_level_up_ex'), colour = G.C.RED})
+                  end
+                        return true
+                    end
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker{ --Sadey Face
+    key = "sadey_face",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Sadey Face',
+        ['text'] = {
+            [1] = 'Hands played without a',
+            [2] = '{C:attention}face {}card give',
+            [3] = '{C:red}+6{} Mult when scored'
+        },
+        ['unlock'] = {
+            [1] = ''
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 7,
+        y = 0
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+            if (function()
+    local rankCount = 0
+    for i, c in ipairs(context.scoring_hand) do
+        if c:is_face() then
+            rankCount = rankCount + 1
+        end
+    end
+    
+    return rankCount == 0
+end)() then
+            end
+        end
+    end
+}
