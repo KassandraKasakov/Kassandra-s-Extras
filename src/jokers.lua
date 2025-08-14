@@ -303,7 +303,7 @@ SMODS.Joker{ --Time Capsule
     discovered = true,
 
     calculate = function(self, card, context)
-        if context.skip_blind  then
+        if context.first_hand_drawn  then
             if true then
                 available_hands = {}
         for hand, value in pairs(G.GAME.hands) do
@@ -318,7 +318,7 @@ SMODS.Joker{ --Time Capsule
                     message = localize('k_level_up_ex')
                 ,
                     func = function()
-                        if SMODS.pseudorandom_probability(card, 'group_0_8ba5381e', 1, card.ability.extra.odds, 'j_modprefix_time_capsule') then
+                        if SMODS.pseudorandom_probability(card, 'group_0_4229aaab', 1, card.ability.extra.odds, 'j_modprefix_time_capsule') then
                       temp_played = 0
         temp_order = math.huge
         for hand, value in pairs(G.GAME.hands) do 
