@@ -270,20 +270,14 @@ SMODS.Joker{ --Time Capsule
     key = "time_capsule",
     config = {
         extra = {
-            levels = 1,
-            odds = 4,
-            levels2 = 1,
-            most = 0
         }
     },
     loc_txt = {
         ['name'] = 'Time Capsule',
         ['text'] = {
-            [1] = 'When {C:attention}Blind {}is skipped',
-            [2] = 'upgrade a random {C:attention}poker hand{}',
-            [3] = '{C:green}1 in 4{} chance to upgrade',
-            [4] = 'level of your most',
-            [5] = 'played {C:attention}poker hand{}'
+            [1] = '{C:attention}+3{} hand size',
+            [2] = '{C:attention}+1{} voucher in shop',
+            [3] = '{C:attention}+1{} booster pack in shop'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -294,8 +288,8 @@ SMODS.Joker{ --Time Capsule
         x = 6,
         y = 0
     },
-    cost = 5,
-    rarity = 2,
+    cost = 4,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -303,46 +297,18 @@ SMODS.Joker{ --Time Capsule
     discovered = true,
 
     calculate = function(self, card, context)
-        if context.first_hand_drawn  then
-            if true then
-                available_hands = {}
-        for hand, value in pairs(G.GAME.hands) do
-          if value.visible and value.level >= to_big(1) then
-            table.insert(available_hands, hand)
-          end
-        end
-        target_hand = #available_hands > 0 and pseudorandom_element(available_hands, pseudoseed('level_up_hand')) or "High Card"
-                return {
-                    level_up = card.ability.extra.levels,
-      level_up_hand = target_hand,
-                    message = localize('k_level_up_ex')
-                ,
-                    func = function()
-                        if SMODS.pseudorandom_probability(card, 'group_0_4229aaab', 1, card.ability.extra.odds, 'j_modprefix_time_capsule') then
-                      temp_played = 0
-        temp_order = math.huge
-        for hand, value in pairs(G.GAME.hands) do 
-          if value.played > temp_played and value.visible then
-            temp_played = value.played
-            temp_order = value.order
-            target_hand2 = hand
-          else if value.played == temp_played and value.visible then
-            if value.order < temp_order then
-              temp_order = value.order
-              target_hand2 = hand
-            end
-          end
-          end
-        end
-                        SMODS.calculate_effect({level_up = card.ability.extra.levels2,
-      level_up_hand = target_hand2}, card)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_level_up_ex'), colour = G.C.RED})
-                  end
-                        return true
-                    end
-                }
-            end
-        end
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(3)
+        SMODS.change_voucher_limit(1)
+        SMODS.change_booster_limit(1)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-3)
+        SMODS.change_voucher_limit(-1)
+        SMODS.change_booster_limit(-1)
     end
 }
 
