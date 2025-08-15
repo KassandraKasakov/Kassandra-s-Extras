@@ -216,6 +216,49 @@ SMODS.Joker{ --Crown
 }
 
 
+SMODS.Joker{ --New Joker
+    key = "blank_joker",
+    config = {
+        extra = {
+            emult = 1.1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Blank Joker',
+        ['text'] = {
+            [1] = 'Played {C:attention}blank {}cards',
+            [2] = 'give {X:mult,C:white}^1.1{} Mult',
+            [3] = 'when scored'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 5,
+        y = 0
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play  then
+            if SMODS.get_enhancements(context.other_card)["m_kassandra_blank_card"] == true then
+                return {
+                    e_mult = card.ability.extra.emult
+                }
+            end
+        end
+    end
+}
+
+
 SMODS.Joker{ --Time Capsule
     key = "time_capsule",
     config = {
