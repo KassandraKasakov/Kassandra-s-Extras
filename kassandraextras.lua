@@ -34,7 +34,27 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 }):register()
 
+-- Seals atlas
+SMODS.Atlas({
+    key = "Seals", 
+    path = "seals.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+-- Spectral atlas
+SMODS.Atlas({
+    key = "Spectral", 
+    path = "spectral.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
 
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
+assert(SMODS.load_file("src/seals.lua"))()
+assert(SMODS.load_file("src/spectrals.lua"))()
 assert(SMODS.load_file("src/tarots.lua"))()
