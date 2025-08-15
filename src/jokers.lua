@@ -48,7 +48,7 @@ SMODS.Joker{ --Steel Bar
     loc_txt = {
         ['name'] = 'Steel Bar',
         ['text'] = {
-            [1] = 'Gives {X:chips,C:white}X0.1{} Chips',
+            [1] = 'Gives {X:chips,C:white}X0.05{} Chips',
             [2] = 'for each {C:attention}Steel Card{}',
             [3] = 'in your {C:attention}full deck{}',
             [4] = '{C:inactive}(Currently{} {X:chips,C:white}X#1#{} {C:inactive}Chips){}'
@@ -71,13 +71,13 @@ SMODS.Joker{ --Steel Bar
     discovered = false,
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1}}
+        return {vars = {card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.05}}
     end,
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
                 return {
-                    x_chips = card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1
+                    x_chips = card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.05
                 }
         end
     end
@@ -268,9 +268,8 @@ SMODS.Joker{ --Time Capsule
     loc_txt = {
         ['name'] = 'Time Capsule',
         ['text'] = {
-            [1] = '{C:attention}+3{} hand size',
-            [2] = '{C:attention}+1{} voucher in shop',
-            [3] = '{C:attention}+1{} booster pack in shop'
+            [1] = '{C:attention}+1{} voucher in shop',
+            [2] = '{C:attention}+1{} booster pack in shop'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -293,13 +292,11 @@ SMODS.Joker{ --Time Capsule
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(3)
         SMODS.change_voucher_limit(1)
         SMODS.change_booster_limit(1)
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-3)
         SMODS.change_voucher_limit(-1)
         SMODS.change_booster_limit(-1)
     end
@@ -395,5 +392,88 @@ SMODS.Joker{ --Oops! All 9s
           denominator = denominator
         }
           end
+    end
+}
+
+SMODS.Joker{ --Ghost Joker
+    key = "ghostjoker",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Ghost Joker',
+        ['text'] = {
+            [1] = 'Adds two {C:attention}Ghost {}cards',
+            [2] = 'to hand when',
+            [3] = '{C:attention}Blind {}is selected'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 9,
+        y = 0
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.setting_blind  then
+                return {
+                    func = function()
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_hand'))
+                local new_card = create_playing_card({
+                    front = card_front,
+                    center = G.P_CENTERS.m_kassandra_ghost_card
+                }, G.discard, true, false, nil, true)
+                
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                new_card.playing_card = G.playing_card
+                table.insert(G.playing_cards, new_card)
+                
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.hand:emplace(new_card)
+                        new_card:start_materialize()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+                        return true
+                    end
+                }))
+            end,
+                    message = "Added Card to Hand!",
+                    extra = {
+                        func = function()
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_hand'))
+                local new_card = create_playing_card({
+                    front = card_front,
+                    center = G.P_CENTERS.m_kassandra_ghost_card
+                }, G.discard, true, false, nil, true)
+                
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                new_card.playing_card = G.playing_card
+                table.insert(G.playing_cards, new_card)
+                
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.hand:emplace(new_card)
+                        new_card:start_materialize()
+                        SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+                        return true
+                    end
+                }))
+            end,
+                            message = "Added Card to Hand!",
+                        colour = G.C.GREEN
+                        }
+                }
+        end
     end
 }

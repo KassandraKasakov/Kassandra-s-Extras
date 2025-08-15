@@ -6,7 +6,9 @@ SMODS.Consumable { -- Space
     loc_txt = {
         name = 'Space',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected card into a {C:attention}Blank Card{}'
+        [1] = 'Enhances {C:attention}2{} selected',
+        [2] = 'card into a',
+        [3] = '{C:attention}Blank Card{}'
     }
     },
     cost = 3,
