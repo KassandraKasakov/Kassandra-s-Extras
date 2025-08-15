@@ -417,8 +417,8 @@ SMODS.Joker{ --Ghost Joker
         x = 9,
         y = 0
     },
-    cost = 5,
-    rarity = 2,
+    cost = 7,
+    rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -430,7 +430,7 @@ SMODS.Joker{ --Ghost Joker
                 local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
             local new_card = create_playing_card({
                 front = card_front,
-                center = G.P_CENTERS.m_mycustom_ghost_card
+                center = G.P_CENTERS.m_kassandra_ghost_card
             }, G.discard, true, false, nil, true)
             
             G.E_MANAGER:add_event(Event({
