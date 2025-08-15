@@ -6,8 +6,7 @@ SMODS.Enhancement { --Blank Card
         name = 'Blank Card',
         text = {
         [1] = 'Do {C:attention}nothing{}',
-        [2] = 'No rank or suit',
-        [3] = 'Card always scores'
+        [2] = 'No rank or suit'
     }
     },
     any_suit = false,
@@ -22,6 +21,7 @@ SMODS.Enhancement { --Blank Card
 
 SMODS.Enhancement { --Ghost Card
     key = 'ghost_card',
+    atlas = 'Enhancements',
     pos = { x = 1, y = 0 },
     config = {
         bonus = 15,
@@ -32,19 +32,16 @@ SMODS.Enhancement { --Ghost Card
         text = {
         [1] = '{C:blue}+15{} Chips',
         [2] = '{C:red}+4{} Mult',
-        [3] = 'Disappear if discarded',
-        [4] = 'or if this card is',
-        [5] = 'held in hand at',
-        [6] = 'end of round'
+        [3] = 'Disappear if {C:attention}discarded {}',
+        [4] = 'or if {C:attention}played{}'
     }
     },
-    atlas = 'Enhancement',
     any_suit = false,
     shatters = true,
     replace_base_card = false,
     no_rank = false,
-    no_suit = false,
-    always_scores = false,
+    no_suit = true,
+    always_scores = true,
     unlocked = true,
     discovered = true,
     no_collection = false,
@@ -52,7 +49,7 @@ SMODS.Enhancement { --Ghost Card
         if context.destroy_card and context.cardarea == G.play and context.destroy_card == card and card.should_destroy then
             return { remove = true }
         end
-        if context.cardarea == G.hand and context.main_scoring and context.end_of_round then
+        if context.main_scoring and context.cardarea == G.play then
             card.should_destroy = false
             card.should_destroy = true
         end
