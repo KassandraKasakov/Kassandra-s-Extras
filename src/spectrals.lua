@@ -6,7 +6,9 @@ SMODS.Consumable { -- Seal
     loc_txt = {
         name = 'Seal',
         text = {
-        [1] = 'Add a {C:attention}Turquoise{} Seal to 1 selected card in your hand'
+        [1] = 'Add a {C:attention}Turquoise{} Seal',
+        [2] = 'to 1 selected',
+        [3] = 'card in your hand'
     }
     },
     cost = 3,
