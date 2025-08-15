@@ -7,10 +7,9 @@ SMODS.Seal { -- Turquoise
         name = 'Turquoise Seal',
         label = 'Turquoise Seal',
         text = {
-        [1] = '{C:blue}+6{} Chips',
-        [2] = 'Balance {C:blue}Chips{} and',
-        [3] = '{C:red}Mult{} while this card',
-        [4] = 'stays in hand'
+        [1] = 'Balance {C:blue}Chips{} and',
+        [2] = '{C:red}Mult{} while this card',
+        [3] = 'stays in hand'
     }
     },
     unlocked = true,
@@ -18,7 +17,7 @@ SMODS.Seal { -- Turquoise
     no_collection = false,
     calculate = function(self, card, context)
         if context.cardarea == G.hand and context.main_scoring then
-            return { chips = card.ability.seal.extra.chips, balance = true }
+            return { balance = true }
         end
     end
 }
