@@ -404,9 +404,9 @@ SMODS.Joker{ --Ghost Joker
     loc_txt = {
         ['name'] = 'Ghost Joker',
         ['text'] = {
-            [1] = 'Adds two {C:attention}Ghost {}cards',
-            [2] = 'to hand when',
-            [3] = '{C:attention}Blind {}is selected'
+            [1] = 'Adds one {C:attention}Ghost {}card',
+            [2] = 'to deck when',
+            [3] = '{C:attention}Blind {}is skipped'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -426,53 +426,32 @@ SMODS.Joker{ --Ghost Joker
     discovered = true,
 
     calculate = function(self, card, context)
-        if context.setting_blind  then
+        if context.skip_blind  then
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
+            local new_card = create_playing_card({
+                front = card_front,
+                center = G.P_CENTERS.m_mycustom_ghost_card
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card:start_materialize()
+                    G.play:emplace(new_card)
+                    return true
+                end
+            }))
                 return {
                     func = function()
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_hand'))
-                local new_card = create_playing_card({
-                    front = card_front,
-                    center = G.P_CENTERS.m_kassandra_ghost_card
-                }, G.discard, true, false, nil, true)
-                
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                new_card.playing_card = G.playing_card
-                table.insert(G.playing_cards, new_card)
-                
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        G.hand:emplace(new_card)
-                        new_card:start_materialize()
-                        SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
                         return true
                     end
                 }))
+                draw_card(G.play, G.deck, 90, 'up')
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
             end,
-                    message = "Added Card to Hand!",
-                    extra = {
-                        func = function()
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card_hand'))
-                local new_card = create_playing_card({
-                    front = card_front,
-                    center = G.P_CENTERS.m_kassandra_ghost_card
-                }, G.discard, true, false, nil, true)
-                
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                new_card.playing_card = G.playing_card
-                table.insert(G.playing_cards, new_card)
-                
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.hand:emplace(new_card)
-                        new_card:start_materialize()
-                        SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
-                        return true
-                    end
-                }))
-            end,
-                            message = "Added Card to Hand!",
-                        colour = G.C.GREEN
-                        }
+                    message = "Added Card!"
                 }
         end
     end

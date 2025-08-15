@@ -30,10 +30,9 @@ SMODS.Enhancement { --Ghost Card
     loc_txt = {
         name = 'Ghost Card',
         text = {
-        [1] = '{C:blue}+15{} Chips',
-        [2] = '{C:red}+4{} Mult',
-        [3] = 'Disappear if {C:attention}discarded {}',
-        [4] = 'or if {C:attention}played{}'
+        [1] = '{X:chips,C:white}X1.5{} Chips',
+        [2] = 'Disappear if {C:attention}discarded {}',
+        [3] = 'or if {C:attention}played{}'
     }
     },
     any_suit = false,
@@ -41,7 +40,7 @@ SMODS.Enhancement { --Ghost Card
     replace_base_card = false,
     no_rank = false,
     no_suit = true,
-    always_scores = true,
+    always_scores = false,
     unlocked = true,
     discovered = true,
     no_collection = false,
@@ -52,6 +51,7 @@ SMODS.Enhancement { --Ghost Card
         if context.main_scoring and context.cardarea == G.play then
             card.should_destroy = false
             card.should_destroy = true
+            SMODS.calculate_effect({x_chips = card.ability.extra.x_chips}, card)
         end
         if context.discard and context.other_card == card  then
             return { remove = true }
