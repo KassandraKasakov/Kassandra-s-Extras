@@ -1,6 +1,6 @@
 SMODS.Seal { -- Turquoise
     key = 'turquoise_seal',
-    atlas = 'Jokers',
+    atlas = 'Seals',
     pos = { x = 0, y = 0 },
     badge_colour = HEX('58E0F2'),
    loc_txt = {
