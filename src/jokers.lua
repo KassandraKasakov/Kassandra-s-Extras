@@ -216,7 +216,7 @@ SMODS.Joker{ --Crown
 }
 
 
-SMODS.Joker{ --New Joker
+SMODS.Joker{ --Blank Joker
     key = "blank_joker",
     config = {
         extra = {
@@ -227,7 +227,7 @@ SMODS.Joker{ --New Joker
         ['name'] = 'Blank Joker',
         ['text'] = {
             [1] = 'Played {C:attention}blank {}cards',
-            [2] = 'give {X:mult,C:white}^1.1{} Mult',
+            [2] = 'give {X:mult,C:white}X5{} Mult',
             [3] = 'when scored'
         },
         ['unlock'] = {
@@ -251,7 +251,7 @@ SMODS.Joker{ --New Joker
         if context.individual and context.cardarea == G.play  then
             if SMODS.get_enhancements(context.other_card)["m_kassandra_blank_card"] == true then
                 return {
-                    e_mult = card.ability.extra.emult
+                    Xmult = card.ability.extra.Xmult
                 }
             end
         end
