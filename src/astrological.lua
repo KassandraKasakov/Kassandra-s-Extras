@@ -84,8 +84,7 @@ SMODS.Consumable { --Gemini
     loc_txt = {
         name = 'III - Gemini',
         text = {
-        [1] = 'Create a copy of a random {C:attention}Joker{}',
-        [2] = '{C:inactive}(The{} {C:dark_edition}edition{} {C:inactive}is removed){}'
+        [1] = 'Create {C:attention}2{} copies of {C:attention}1{} selected card'
     }
     },
     cost = 3,
@@ -95,58 +94,35 @@ SMODS.Consumable { --Gemini
     can_repeat_soul = false,
     use = function(self, card, area, copier)
         local used_card = copier or card
-            local jokers_to_copy = {}
-            local available_jokers = {}
-            
-            for _, joker in pairs(G.jokers.cards) do
-                if joker.ability.set == 'Joker' then
-                    available_jokers[#available_jokers + 1] = joker
-                end
-            end
-            
-            if #available_jokers > 0 then
-                local temp_jokers = {}
-                for _, joker in ipairs(available_jokers) do 
-                    temp_jokers[#temp_jokers + 1] = joker 
-                end
-                
-                pseudoshuffle(temp_jokers, 54321)
-                
-                for i = 1, math.min(card.ability.extra.copy_amount, #temp_jokers, G.jokers.config.card_limit - #G.jokers.cards) do
-                    jokers_to_copy[#jokers_to_copy + 1] = temp_jokers[i]
-                end
-            end
-
+        if #G.hand.highlighted == 1 then
             G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
                 func = function()
-                    play_sound('timpani')
-                    used_card:juice_up(0.3, 0.5)
+                    local _first_materialize = nil
+                    local new_cards = {}
+                    
+                    for _, selected_card in pairs(G.hand.highlighted) do
+                        for i = 1, card.ability.extra.copy_cards_amount do
+                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                            local copied_card = copy_card(selected_card, nil, nil, G.playing_card)
+                            copied_card:add_to_deck()
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            table.insert(G.playing_cards, copied_card)
+                            G.hand:emplace(copied_card)
+                            copied_card:start_materialize(nil, _first_materialize)
+                            _first_materialize = true
+                            new_cards[#new_cards + 1] = copied_card
+                        end
+                    end
+                    
+                    SMODS.calculate_context({ playing_card_added = true, cards = new_cards })
                     return true
                 end
             }))
-
-            local _first_materialize = nil
-            for _, joker_to_copy in pairs(jokers_to_copy) do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.4,
-                    func = function()
-                        local copied_joker = copy_card(joker_to_copy, nil, nil, nil, false)
-                        copied_joker:start_materialize(nil, _first_materialize)
-                        copied_joker:add_to_deck()
-                        G.jokers:emplace(copied_joker)
-                        _first_materialize = true
-                        copied_joker:set_edition(nil, true)
-                        return true
-                    end
-                }))
-            end
             delay(0.6)
+        end
     end,
     can_use = function(self, card)
-        return true
+        return (#G.hand.highlighted == 1)
     end
 }
 
@@ -159,7 +135,7 @@ SMODS.Consumable { --Cancer
     loc_txt = {
         name = 'IV - Cancer',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = '888888'
     }
     },
     cost = 3,
@@ -209,8 +185,9 @@ SMODS.Consumable { --Virgo
     loc_txt = {
         name = 'VI - Virgo',
         text = {
-        [1] = 'Remove {C:attention}everything {}up to',
-        [2] = '{C:attention}2{} selected cards'
+        [1] = 'Enhances {C:attention}2{} selected',
+        [2] = 'cards into a',
+        [3] = '{C:attention}Blank{} Card'
     }
     },
     cost = 3,
@@ -249,27 +226,7 @@ SMODS.Consumable { --Virgo
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS.c_base)
-                        return true
-                    end
-                }))
-            end
-            for i = 1, #G.hand.highlighted do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        G.hand.highlighted[i]:set_seal(nil, nil, true)
-                        return true
-                    end
-                }))
-            end
-            for i = 1, #G.hand.highlighted do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        G.hand.highlighted[i]:set_edition(nil, true)
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_blank_card'])
                         return true
                     end
                 }))

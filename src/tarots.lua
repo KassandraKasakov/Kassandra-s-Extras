@@ -7,7 +7,7 @@ SMODS.Consumable { -- Space
         name = 'Space',
         text = {
         [1] = 'Enhances {C:attention}2{} selected',
-        [2] = 'card into a',
+        [2] = 'cards into a',
         [3] = '{C:attention}Blank Card{}'
     }
     },
