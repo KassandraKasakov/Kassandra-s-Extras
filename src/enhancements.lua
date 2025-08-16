@@ -73,8 +73,8 @@ SMODS.Enhancement { --Soap Card
     loc_txt = {
         name = 'Soap Card',
         text = {
-        [1] = '{C:blue}+10 X Remaining Hands{} Chips',
-        [2] = '{C:red}+Remaining Discards{} Mult',
+        [1] = '{C:blue}+10 X Hands{} Chips',
+        [2] = '{C:red}+Discards{} Mult',
         [3] = 'while this card stays in hand',
         [4] = '{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips and{} {C:red}+#2#{} {C:inactive}Mult){}'
     }
