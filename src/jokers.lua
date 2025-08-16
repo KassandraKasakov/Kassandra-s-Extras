@@ -48,9 +48,9 @@ SMODS.Joker{ --Steel Bar
     loc_txt = {
         ['name'] = 'Steel Bar',
         ['text'] = {
-            [1] = 'Gives {X:chips,C:white}X0.1{} Chips',
+            [1] = 'Gives {X:chips,C:white}X0.05{} Chips',
             [2] = 'for each {C:attention}Steel Card{}',
-            [3] = 'in your {C:attention}hand{}',
+            [3] = 'in your {C:attention} full deck{}',
             [4] = '{C:inactive}(Currently{} {X:chips,C:white}X#1#{} {C:inactive}Chips){}'
         },
         ['unlock'] = {
@@ -71,13 +71,13 @@ SMODS.Joker{ --Steel Bar
     discovered = false,
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.steelcardsinhand + (((function() local count = 0; for _, card in ipairs(G.hand and G.hand.cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)() or 0)) * 0.1}}
+        return {vars = {card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1}}
     end,
 
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
                 return {
-                    x_chips = card.ability.extra.steelcardsinhand + ((function() local count = 0; for _, card in ipairs(G.hand and G.hand.cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1
+                    x_chips = card.ability.extra.steelcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_steel') then count = count + 1 end end; return count end)()) * 0.1
                 }
         end
     end
