@@ -58,3 +58,41 @@ SMODS.Enhancement { --Ghost Card
         end
     end
 }
+
+
+SMODS.Enhancement { --Soap Card
+    key = 'soap_card',
+    atlas = 'Enhancements',
+    pos = { x = 2, y = 0 },
+    config = {
+        extra = {
+            handsremaining = 0,
+            discardsremaining = 0
+        }
+    },
+    loc_txt = {
+        name = 'Soap Card',
+        text = {
+        [1] = '{C:blue}+10 X Remaining Hands{} Chips',
+        [2] = '{C:red}+Remaining Discards{} Mult',
+        [3] = 'while this card stays in hand',
+        [4] = '{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips and{} {C:red}+#2#{} {C:inactive}Mult){}'
+    }
+    },
+    any_suit = false,
+    replace_base_card = false,
+    no_rank = false,
+    no_suit = false,
+    always_scores = false,
+    unlocked = true,
+    discovered = true,
+    no_collection = false,
+    loc_vars = function(self, info_queue, card)
+        return {vars = {((G.GAME.current_round.hands_left or 0)) * 10, (G.GAME.current_round.discards_left or 0)}}
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.hand and context.main_scoring then
+            return { chips = (G.GAME.current_round.hands_left) * 10, mult = G.GAME.current_round.discards_left }
+        end
+    end
+}
