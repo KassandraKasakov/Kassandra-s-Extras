@@ -32,7 +32,7 @@ SMODS.Consumable { --Aries
     atlas = 'Astrological',
     pos = { x = 1, y = 0 },
     loc_txt = {
-        name = 'Aries',
+        name = 'I - Aries',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -57,7 +57,7 @@ SMODS.Consumable { --Taurus
     atlas = 'Astrological',
     pos = { x = 2, y = 0 },
     loc_txt = {
-        name = 'Taurus',
+        name = 'II - Taurus',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -82,7 +82,7 @@ SMODS.Consumable { --Gemini
     atlas = 'Astrological',
     pos = { x = 3, y = 0 },
     loc_txt = {
-        name = 'Gemini',
+        name = 'III - Gemini',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -107,7 +107,7 @@ SMODS.Consumable { --Cancer
     atlas = 'Astrological',
     pos = { x = 4, y = 0 },
     loc_txt = {
-        name = 'Cancer',
+        name = 'IV - Cancer',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -132,7 +132,7 @@ SMODS.Consumable { --Leo
     atlas = 'Astrological',
     pos = { x = 5, y = 0 },
     loc_txt = {
-        name = 'Leo',
+        name = 'V - Leo',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -157,7 +157,7 @@ SMODS.Consumable { --Virgo
     atlas = 'Astrological',
     pos = { x = 6, y = 0 },
     loc_txt = {
-        name = 'Virgo',
+        name = 'VI - Virgo',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -182,7 +182,7 @@ SMODS.Consumable { --Libra
     atlas = 'Astrological',
     pos = { x = 1, y = 1 },
     loc_txt = {
-        name = 'Libra',
+        name = 'VII - Libra',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -207,7 +207,7 @@ SMODS.Consumable { --Scorpio
     atlas = 'Astrological',
     pos = { x = 2, y = 1 },
     loc_txt = {
-        name = 'Scorpio',
+        name = 'VIII - Scorpio',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -232,7 +232,7 @@ SMODS.Consumable { --Sagittarius
     atlas = 'Astrological',
     pos = { x = 3, y = 1 },
     loc_txt = {
-        name = 'Sagittarius',
+        name = 'IX - Sagittarius',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -257,7 +257,7 @@ SMODS.Consumable { --Capricorn
     atlas = 'Astrological',
     pos = { x = 4, y = 1 },
     loc_txt = {
-        name = 'Capricorn',
+        name = 'X - Capricorn',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -282,7 +282,7 @@ SMODS.Consumable { --Aquarius
     atlas = 'Astrological',
     pos = { x = 5, y = 1 },
     loc_txt = {
-        name = 'Aquarius',
+        name = 'XI - Aquarius',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }
@@ -307,7 +307,7 @@ SMODS.Consumable { --Pisces
     atlas = 'Astrological',
     pos = { x = 6, y = 1 },
     loc_txt = {
-        name = 'Pisces',
+        name = 'XII - Pisces',
         text = {
         [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
     }

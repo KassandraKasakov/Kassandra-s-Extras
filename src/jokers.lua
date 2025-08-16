@@ -417,6 +417,7 @@ SMODS.Joker{ --Ghost Joker
         x = 9,
         y = 0
     },
+    pixel_size = { h = 74 },
     cost = 7,
     rarity = 3,
     blueprint_compat = true,
