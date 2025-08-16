@@ -1,23 +1,23 @@
 SMODS.ConsumableType { --Def of Astrological Type
     key = 'astrological',
     shader = 'tarot',
-    primary_colour = HEX('735e15'),
-    secondary_colour = HEX('735e15'),
+    primary_colour = HEX('757cdc'),
+    secondary_colour = HEX('757cdc'),
     collection_rows = { 6, 6 },
-    shop_rate = 1,
+    shop_rate = 4,
     cards = {
-        ['c_mycustom_aquarius'] = true,
-        ['c_mycustom_aries'] = true,
-        ['c_mycustom_cancer'] = true,
-        ['c_mycustom_capricorn'] = true,
-        ['c_mycustom_gemini'] = true,
-        ['c_mycustom_leo'] = true,
-        ['c_mycustom_libra'] = true,
-        ['c_mycustom_pisces'] = true,
-        ['c_mycustom_sagittarius'] = true,
-        ['c_mycustom_scorpio'] = true,
-        ['c_mycustom_taurus'] = true,
-        ['c_mycustom_virgo'] = true
+        ['c_kassandra_aquarius'] = true,
+        ['c_kassandra_aries'] = true,
+        ['c_kassandra_cancer'] = true,
+        ['c_kassandra_capricorn'] = true,
+        ['c_kassandra_gemini'] = true,
+        ['c_kassandra_leo'] = true,
+        ['c_kassandra_libra'] = true,
+        ['c_kassandra_pisces'] = true,
+        ['c_kassandra_sagittarius'] = true,
+        ['c_kassandra_scorpio'] = true,
+        ['c_kassandra_taurus'] = true,
+        ['c_kassandra_virgo'] = true
     },
     loc_txt = {
         name = "Astrological",
@@ -55,7 +55,7 @@ SMODS.Consumable { --Taurus
     key = 'taurus',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 2, y = 1 },
+    pos = { x = 2, y = 0 },
     loc_txt = {
         name = 'Taurus',
         text = {
@@ -80,7 +80,7 @@ SMODS.Consumable { --Gemini
     key = 'gemini',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 4, y = 0 },
+    pos = { x = 3, y = 0 },
     loc_txt = {
         name = 'Gemini',
         text = {
@@ -105,7 +105,7 @@ SMODS.Consumable { --Cancer
     key = 'cancer',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 2, y = 0 },
+    pos = { x = 4, y = 0 },
     loc_txt = {
         name = 'Cancer',
         text = {
@@ -155,7 +155,7 @@ SMODS.Consumable { --Virgo
     key = 'virgo',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 3, y = 1 },
+    pos = { x = 6, y = 0 },
     loc_txt = {
         name = 'Virgo',
         text = {
@@ -180,7 +180,7 @@ SMODS.Consumable { --Libra
     key = 'libra',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 6, y = 0 },
+    pos = { x = 1, y = 1 },
     loc_txt = {
         name = 'Libra',
         text = {
@@ -205,7 +205,7 @@ SMODS.Consumable { --Scorpio
     key = 'scorpio',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 0, y = 1 },
+    pos = { x = 2, y = 1 },
     loc_txt = {
         name = 'Scorpio',
         text = {
@@ -230,7 +230,7 @@ SMODS.Consumable { --Sagittarius
     key = 'sagittarius',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 9, y = 0 },
+    pos = { x = 3, y = 1 },
     loc_txt = {
         name = 'Sagittarius',
         text = {
@@ -255,7 +255,7 @@ SMODS.Consumable { --Capricorn
     key = 'capricorn',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 3, y = 0 },
+    pos = { x = 4, y = 1 },
     loc_txt = {
         name = 'Capricorn',
         text = {
@@ -280,7 +280,7 @@ SMODS.Consumable { --Aquarius
     key = 'aquarius',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 0, y = 0 },
+    pos = { x = 5, y = 1 },
     loc_txt = {
         name = 'Aquarius',
         text = {
@@ -305,7 +305,7 @@ SMODS.Consumable { --Pisces
     key = 'pisces',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 8, y = 0 },
+    pos = { x = 6, y = 1 },
     loc_txt = {
         name = 'Pisces',
         text = {
