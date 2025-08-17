@@ -31,6 +31,7 @@ SMODS.Consumable { --Aries
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 1, y = 0 },
+    soul_pos = { x = 1, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'I - Aries',
@@ -57,6 +58,7 @@ SMODS.Consumable { --Taurus
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 2, y = 0 },
+    soul_pos = { x = 2, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'II - Taurus',
@@ -83,6 +85,7 @@ SMODS.Consumable { --Gemini
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 3, y = 0 },
+    soul_pos = { x = 3, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'III - Gemini',
@@ -135,6 +138,7 @@ SMODS.Consumable { --Cancer
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 4, y = 0 },
+    soul_pos = { x = 4, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'IV - Cancer',
@@ -161,6 +165,7 @@ SMODS.Consumable { --Leo
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 5, y = 0 },
+    soul_pos = { x = 5, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'V - Leo',
@@ -187,6 +192,7 @@ SMODS.Consumable { --Virgo
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 6, y = 0 },
+    soul_pos = { x = 6, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'VI - Virgo',
@@ -271,7 +277,8 @@ SMODS.Consumable { --Libra
     key = 'libra',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 1, y = 1 },
+    pos = { x = 1, y = 2 },
+    soul_pos = { x = 1, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'VII - Libra',
@@ -384,7 +391,8 @@ SMODS.Consumable { --Scorpio
     key = 'scorpio',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 2, y = 1 },
+    pos = { x = 2, y = 2 },
+    soul_pos = { x = 2, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'VIII - Scorpio',
@@ -410,7 +418,8 @@ SMODS.Consumable { --Sagittarius
     key = 'sagittarius',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 3, y = 1 },
+    pos = { x = 3, y = 2 },
+    soul_pos = { x = 3, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'IX - Sagittarius',
@@ -486,7 +495,8 @@ SMODS.Consumable { --Capricorn
     key = 'capricorn',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 4, y = 1 },
+    pos = { x = 4, y = 2 },
+    soul_pos = { x = 4, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'X - Capricorn',
@@ -512,7 +522,8 @@ SMODS.Consumable { --Aquarius
     key = 'aquarius',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 5, y = 1 },
+    pos = { x = 5, y = 2 },
+    soul_pos = { x = 5, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'XI - Aquarius',
@@ -595,7 +606,8 @@ SMODS.Consumable { --Pisces
     key = 'pisces',
     set = 'astrological',
     atlas = 'Astrological',
-    pos = { x = 6, y = 1 },
+    pos = { x = 6, y = 2 },
+    soul_pos = { x = 6, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
         name = 'XII - Pisces',
