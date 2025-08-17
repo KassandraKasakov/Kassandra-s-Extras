@@ -31,6 +31,7 @@ SMODS.Consumable { --Aries
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 1, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'I - Aries',
         text = {
@@ -56,6 +57,7 @@ SMODS.Consumable { --Taurus
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 2, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'II - Taurus',
         text = {
@@ -81,6 +83,7 @@ SMODS.Consumable { --Gemini
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 3, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'III - Gemini',
         text = {
@@ -132,6 +135,7 @@ SMODS.Consumable { --Cancer
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 4, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'IV - Cancer',
         text = {
@@ -157,6 +161,7 @@ SMODS.Consumable { --Leo
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 5, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'V - Leo',
         text = {
@@ -182,6 +187,7 @@ SMODS.Consumable { --Virgo
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 6, y = 0 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'VI - Virgo',
         text = {
@@ -266,6 +272,7 @@ SMODS.Consumable { --Libra
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 1, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'VII - Libra',
         text = {
@@ -378,6 +385,7 @@ SMODS.Consumable { --Scorpio
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 2, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'VIII - Scorpio',
         text = {
@@ -403,6 +411,7 @@ SMODS.Consumable { --Sagittarius
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 3, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'IX - Sagittarius',
         text = {
@@ -478,6 +487,7 @@ SMODS.Consumable { --Capricorn
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 4, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'X - Capricorn',
         text = {
@@ -503,10 +513,11 @@ SMODS.Consumable { --Aquarius
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 5, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'XI - Aquarius',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Enhances {C:attention}1{} selected card into a {C:attention}Glass{} Card'
     }
     },
     cost = 3,
@@ -515,10 +526,67 @@ SMODS.Consumable { --Aquarius
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+        if #G.hand.highlighted == 1 then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            for i = 1, #G.hand.highlighted do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('card1', percent)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.2)
+            for i = 1, #G.hand.highlighted do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_glass'])
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #G.hand.highlighted do
+                local percent = 0.85 + (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    G.hand:unhighlight_all()
+                    return true
+                end
+            }))
+            delay(0.5)
+        end
     end,
     can_use = function(self, card)
-        return true
+        return (#G.hand.highlighted == 1)
     end
 }
 
@@ -528,6 +596,7 @@ SMODS.Consumable { --Pisces
     set = 'astrological',
     atlas = 'Astrological',
     pos = { x = 6, y = 1 },
+    pixel_size = { h = 63 },
     loc_txt = {
         name = 'XII - Pisces',
         text = {
