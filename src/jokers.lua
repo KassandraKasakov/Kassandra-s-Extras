@@ -461,3 +461,69 @@ SMODS.Joker{ --Ghost Joker
         end
     end
 }
+
+
+SMODS.Joker{ --Random Boss Blind
+    key = "boss_blind",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Random Boss Blind',
+        ['text'] = {
+            [1] = 'Disable {C:attention}Boss Blind{} when',
+            [2] = 'a {C:green}probability {}{C:attention}failed{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 0,
+        y = 1
+    },
+    soul_pos = {
+        x = 0,
+        y = 2
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    in_pool = function(self, args)
+          return (
+          not args 
+            
+          or args.source == 'sho' or args.source == 'buf' or args.source == 'jud' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and true
+      end
+    ,
+
+    calculate = function(self, card, context)
+        if context.pseudorandom_result  then
+            if not context.result then
+                return {
+                    func = function()
+            if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.blind:disable()
+                        play_sound('timpani')
+                        return true
+                    end
+                }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled'), colour = G.C.GREEN})
+            end
+                    return true
+                end
+                }
+            end
+        end
+    end
+}
