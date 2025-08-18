@@ -573,7 +573,7 @@ SMODS.Joker{ --Tiny Boss
 
     calculate = function(self, card, context)
         if context.setting_blind  then
-            if G.GAME.blind.boss then
+            if (G.GAME.blind.boss and G.GAME.round_resets.ante <= 8) then
                 return {
                     func = function()
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "/"..tostring(card.ability.extra.blind_size).." Blind Size", colour = G.C.GREEN})
@@ -583,7 +583,7 @@ SMODS.Joker{ --Tiny Boss
                 return true
             end
                 }
-            elseif G.GAME.blind:get_type() == 'Small' then
+            elseif (G.GAME.blind:get_type() == 'Small' and G.GAME.round_resets.ante <= 8) then
                 return {
                     func = function()
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size2).." Blind Size", colour = G.C.GREEN})
@@ -593,7 +593,7 @@ SMODS.Joker{ --Tiny Boss
                 return true
             end
                 }
-            elseif G.GAME.blind:get_type() == 'Big' then
+            elseif (G.GAME.blind:get_type() == 'Big' and G.GAME.round_resets.ante <= 8) then
                 return {
                     func = function()
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size3).." Blind Size", colour = G.C.GREEN})
