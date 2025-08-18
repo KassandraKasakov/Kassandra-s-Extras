@@ -527,3 +527,83 @@ SMODS.Joker{ --Random Boss Blind
         end
     end
 }
+
+
+SMODS.Joker{ --Tiny Boss
+    key = "tiny_boss",
+    config = {
+        extra = {
+            blind_size = 2,
+            blind_size2 = 2,
+            blind_size3 = 2
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Tiny Boss',
+        ['text'] = {
+            [1] = 'Up to ante {C:red}8{}',
+            [2] = '{C:red}X2 {}{C:attention}Small {}and {C:attention}Big Blind{} Size',
+            [3] = '{C:red}X0.5{} {C:attention}Boss Blind{} size'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 1,
+        y = 1
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    in_pool = function(self, args)
+          return (
+          not args 
+            
+          or args.source == 'sho' or args.source == 'buf' or args.source == 'jud' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and true
+      end
+    ,
+
+    calculate = function(self, card, context)
+        if context.setting_blind  then
+            if G.GAME.blind.boss then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "/"..tostring(card.ability.extra.blind_size).." Blind Size", colour = G.C.GREEN})
+                G.GAME.blind.chips = G.GAME.blind.chips / card.ability.extra.blind_size
+                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                G.HUD_blind:recalculate()
+                return true
+            end
+                }
+            elseif G.GAME.blind:get_type() == 'Small' then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size2).." Blind Size", colour = G.C.GREEN})
+                G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_size2
+                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                G.HUD_blind:recalculate()
+                return true
+            end
+                }
+            elseif G.GAME.blind:get_type() == 'Big' then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size3).." Blind Size", colour = G.C.GREEN})
+                G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_size3
+                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                G.HUD_blind:recalculate()
+                return true
+            end
+                }
+            end
+        end
+    end
+}
