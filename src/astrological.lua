@@ -34,18 +34,35 @@ SMODS.Consumable { --Aries
     soul_pos = { x = 1, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'I - Aries',
+        name = 'Aries',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Gives {C:money}$Hand Size{}',
+        [2] = '{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}'
     }
     },
+    config = { extra = {
+        currenthandsize = 0
+    } },
     cost = 3,
     unlocked = true,
     discovered = true,
     hidden = false,
     can_repeat_soul = false,
+    loc_vars = function(self, info_queue, card)
+        return {vars = {((G.hand and G.hand.config.card_limit or 0) or 0)}}
+    end,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring((G.hand and G.hand.config.card_limit or 0)).." $", colour = G.C.MONEY})
+                    ease_dollars((G.hand and G.hand.config.card_limit or 0), true)
+                    return true
+                end
+            }))
+            delay(0.6)
     end,
     can_use = function(self, card)
         return true
@@ -61,9 +78,9 @@ SMODS.Consumable { --Taurus
     soul_pos = { x = 2, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'II - Taurus',
+        name = 'Taurus',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Create a random {C:dark_edition}negative {}{C:attention}Joker{}'
     }
     },
     cost = 3,
@@ -72,13 +89,26 @@ SMODS.Consumable { --Taurus
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            G.E_MANAGER:add_event(Event({
+                  trigger = 'after',
+                  delay = 0.4,
+                  func = function()
+                      play_sound('timpani')
+                      local new_joker = SMODS.add_card({ set = 'Joker' })
+                      if new_joker then
+                          new_joker:set_edition({ negative = true }, true)
+                      end
+                      used_card:juice_up(0.3, 0.5)
+                      return true
+                  end
+              }))
+              delay(0.6)
     end,
     can_use = function(self, card)
         return true
     end
 }
-
 
 SMODS.Consumable { --Gemini
     key = 'gemini',
@@ -87,6 +117,9 @@ SMODS.Consumable { --Gemini
     pos = { x = 3, y = 0 },
     soul_pos = { x = 3, y = 1 },
     pixel_size = { h = 63 },
+    config = { extra = {
+        copy_cards_amount = 2
+    } },
     loc_txt = {
         name = 'III - Gemini',
         text = {
@@ -140,10 +173,18 @@ SMODS.Consumable { --Cancer
     pos = { x = 4, y = 0 },
     soul_pos = { x = 4, y = 1 },
     pixel_size = { h = 63 },
+    config = { extra = {
+        odds = 2,
+        perma_bonus_value = 15,
+        perma_bonus_value = 2
+    } },
     loc_txt = {
-        name = 'IV - Cancer',
+        name = 'Cancer',
         text = {
-        [1] = '888888'
+        [1] = 'Select {C:attention}1{} selected card',
+        [2] = '{C:green}1 in 2{} chance to add {C:blue}+15{} Chips',
+        [3] = '{C:green}1 in 2{} chance to add {C:red}+2{} Mult',
+        [4] = '{C:inactive}(DO NOT USE THIS WITH A CARD ALREADY UPGRADED){}'
     }
     },
     cost = 3,
@@ -152,10 +193,128 @@ SMODS.Consumable { --Cancer
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+        if #G.hand.highlighted == 1 then
+            if SMODS.pseudorandom_probability(card, 'group_0_9d619148', 1, card.ability.extra.odds, 'c_modprefix') then
+                G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            for i = 1, #G.hand.highlighted do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('card1', percent)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.2)
+            for i = 1, #G.hand.highlighted do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        G.hand.highlighted[i].ability.perma_bonus = G.hand.highlighted[i].ability.perma_bonus or 0
+                        G.hand.highlighted[i].ability.perma_bonus = G.hand.highlighted[i].ability.perma_bonus + 15
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #G.hand.highlighted do
+                local percent = 0.85 + (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    G.hand:unhighlight_all()
+                    return true
+                end
+            }))
+            delay(0.5)
+            end
+            if SMODS.pseudorandom_probability(card, 'group_1_cb0df3bf', 1, card.ability.extra.odds, 'c_modprefix') then
+                G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            for i = 1, #G.hand.highlighted do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('card1', percent)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.2)
+            for i = 1, #G.hand.highlighted do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        G.hand.highlighted[i].ability.perma_mult = G.hand.highlighted[i].ability.perma_mult or 0
+                        G.hand.highlighted[i].ability.perma_mult = G.hand.highlighted[i].ability.perma_mult + 2
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #G.hand.highlighted do
+                local percent = 0.85 + (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.highlighted[i]:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.2,
+                func = function()
+                    G.hand:unhighlight_all()
+                    return true
+                end
+            }))
+            delay(0.5)
+            end
+        end
     end,
     can_use = function(self, card)
-        return true
+        return (#G.hand.highlighted == 1)
     end
 }
 
@@ -168,9 +327,11 @@ SMODS.Consumable { --Leo
     soul_pos = { x = 5, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'V - Leo',
+        name = 'Leo',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Converts all cards in hand',
+        [2] = 'to a single random {C:attention}suit {}',
+        [3] = 'and a random {C:attention}rank{}'
     }
     },
     cost = 3,
@@ -179,7 +340,99 @@ SMODS.Consumable { --Leo
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            for i = 1, #G.hand.cards do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.cards[i]:flip()
+                        play_sound('card1', percent)
+                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            local _suit = pseudorandom_element(SMODS.Suits, 'convert_all_suit')
+            for i = 1, #G.hand.cards do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local _card = G.hand.cards[i]
+                        assert(SMODS.change_base(_card, _suit.key))
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #G.hand.cards do
+                local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.cards[i]:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.5)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    used_card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            for i = 1, #G.hand.cards do
+                local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.cards[i]:flip()
+                        play_sound('card1', percent)
+                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            local _rank = pseudorandom_element(SMODS.Ranks, 'convert_all_rank')
+            for i = 1, #G.hand.cards do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local _card = G.hand.cards[i]
+                        assert(SMODS.change_base(_card, nil, _rank.key))
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #G.hand.cards do
+                local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        G.hand.cards[i]:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+            delay(0.5)
     end,
     can_use = function(self, card)
         return true
@@ -394,10 +647,13 @@ SMODS.Consumable { --Scorpio
     pos = { x = 2, y = 2 },
     soul_pos = { x = 2, y = 3 },
     pixel_size = { h = 63 },
+    config = { extra = {
+        hand_size_value = 2
+    } },
     loc_txt = {
-        name = 'VIII - Scorpio',
+        name = 'Scorpio',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = '{C:attention}+2{} Discard Size'
     }
     },
     cost = 3,
@@ -406,7 +662,17 @@ SMODS.Consumable { --Scorpio
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(2).." Hand Size", colour = G.C.BLUE})
+                    SMODS.change_discard_limit(2)
+                    return true
+                end
+            }))
+            delay(0.6)
     end,
     can_use = function(self, card)
         return true
@@ -499,9 +765,9 @@ SMODS.Consumable { --Capricorn
     soul_pos = { x = 4, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'X - Capricorn',
+        name = 'Capricorn',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Create a {C:attention}random tag{}'
     }
     },
     cost = 3,
@@ -510,7 +776,26 @@ SMODS.Consumable { --Capricorn
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local selected_tag = pseudorandom_element(G.P_TAGS, pseudoseed("create_tag")).key
+                    local tag = Tag(selected_tag)
+                    if tag.name == "Orbital Tag" then
+                        local _poker_hands = {}
+                        for k, v in pairs(G.GAME.hands) do
+                            if v.visible then
+                                _poker_hands[#_poker_hands + 1] = k
+                            end
+                        end
+                        tag.ability.orbital_hand = pseudorandom_element(_poker_hands, "jokerforge_orbital")
+                    end
+                    tag:set_ability()
+                    add_tag(tag)
+                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                    return true
+                end
+            }))
     end,
     can_use = function(self, card)
         return true
@@ -528,7 +813,7 @@ SMODS.Consumable { --Aquarius
     loc_txt = {
         name = 'XI - Aquarius',
         text = {
-        [1] = 'Enhances {C:attention}1{} selected card into a {C:attention}Glass{} Card'
+        [1] = 'Enhances {C:attention}1{} selected card into a {C:attention}Ghost{} Card'
     }
     },
     cost = 3,
@@ -567,7 +852,7 @@ SMODS.Consumable { --Aquarius
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_glass'])
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_ghost_card'])
                         return true
                     end
                 }))
@@ -609,10 +894,13 @@ SMODS.Consumable { --Pisces
     pos = { x = 6, y = 2 },
     soul_pos = { x = 6, y = 3 },
     pixel_size = { h = 63 },
+    config = { extra = {
+        consumable_count = 1
+    } },
     loc_txt = {
-        name = 'XII - Pisces',
+        name = 'Pisces',
         text = {
-        [1] = 'A {C:purple}custom{} consumable with {C:blue}unique{} effects.'
+        [1] = 'Create a random {C:diamonds}Astrological{} Card'
     }
     },
     cost = 3,
@@ -621,7 +909,22 @@ SMODS.Consumable { --Pisces
     hidden = false,
     can_repeat_soul = false,
     use = function(self, card, area, copier)
-        
+        local used_card = copier or card
+            for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        if G.consumeables.config.card_limit > #G.consumeables.cards then
+                            play_sound('timpani')
+                            SMODS.add_card({ set = 'astrological' })
+                            used_card:juice_up(0.3, 0.5)
+                        end
+                        return true
+                    end
+                }))
+            end
+            delay(0.6)
     end,
     can_use = function(self, card)
         return true

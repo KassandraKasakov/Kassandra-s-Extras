@@ -20,6 +20,7 @@ SMODS.Joker{ --Golden Bar
         x = 0,
         y = 0
     },
+    pixel_size = { w = 49 },
     cost = 6,
     rarity = 3,
     blueprint_compat = true,
@@ -62,6 +63,7 @@ SMODS.Joker{ --Steel Bar
         x = 1   ,
         y = 0
     },
+    pixel_size = { w = 49 },
     cost = 5,
     rarity = 2,
     blueprint_compat = true,
@@ -604,6 +606,102 @@ SMODS.Joker{ --Tiny Boss
             end
                 }
             end
+        end
+    end
+}
+
+
+SMODS.Joker{ --Discard Trash Bin
+    key = "trash_bin_discard",
+    config = {
+        extra = {
+            discards = 1,
+            permanent = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Discard Trash Bin',
+        ['text'] = {
+            [1] = 'Add 1 {C:attention}discard {}when any',
+            [2] = '{C:attention}Booster Pack{} is skipped'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 2,
+        y = 1
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.skipping_booster  then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.discards).." Discard", colour = G.C.ORANGE})
+                
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
+        
+                return true
+            end
+                }
+        end
+    end
+}
+
+
+SMODS.Joker{ --Hand Trash Bin
+    key = "trash_bin_hand",
+    config = {
+        extra = {
+            hands = 1,
+            permanent = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Hand Trash Bin',
+        ['text'] = {
+            [1] = 'Add 1 {C:attention}hand {}when any',
+            [2] = '{C:attention}Booster Pack{} is skipped'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 3,
+        y = 1
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.skipping_booster  then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.hands).." Hand", colour = G.C.GREEN})
+                
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        ease_hands_played(card.ability.extra.hands)
+        
+                return true
+            end
+                }
         end
     end
 }
