@@ -615,15 +615,17 @@ SMODS.Joker{ --Discard Trash Bin
     key = "trash_bin_discard",
     config = {
         extra = {
-            discards = 1,
-            permanent = 0
+            BoosterSkipped = 0,
+            round = 0
         }
     },
     loc_txt = {
         ['name'] = 'Discard Trash Bin',
         ['text'] = {
-            [1] = 'Add 1 {C:attention}discard {}when any',
-            [2] = '{C:attention}Booster Pack{} is skipped'
+            [1] = 'Add 1 {C:attention}discard{} for',
+            [2] = 'next round when any',
+            [3] = '{C:attention}Booster Pack{} is skipped',
+            [4] = '{C:inactive}(Currently{} {C:attention}+#1#{}{C:inactive}){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -642,17 +644,34 @@ SMODS.Joker{ --Discard Trash Bin
     unlocked = true,
     discovered = true,
 
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.BoosterSkipped}}
+    end,
+
     calculate = function(self, card, context)
         if context.skipping_booster  then
                 return {
                     func = function()
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.discards).." Discard", colour = G.C.ORANGE})
-                
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
-        ease_discard(card.ability.extra.discards)
-        
+                    card.ability.extra.BoosterSkipped = (card.ability.extra.BoosterSkipped) + 1
+                    return true
+                end
+                }
+        end
+        if context.setting_blind  then
+                local BoosterSkipped_value = card.ability.extra.BoosterSkipped
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(BoosterSkipped_value).." Discard", colour = G.C.ORANGE})
+                G.GAME.current_round.discards_left = G.GAME.current_round.discards_left + BoosterSkipped_value
                 return true
-            end
+            end,
+                    extra = {
+                        func = function()
+                    card.ability.extra.BoosterSkipped = 0
+                    return true
+                end,
+                        colour = G.C.BLUE
+                        }
                 }
         end
     end
@@ -663,15 +682,17 @@ SMODS.Joker{ --Hand Trash Bin
     key = "trash_bin_hand",
     config = {
         extra = {
-            hands = 1,
-            permanent = 0
+            BoosterSkipped = 0,
+            round = 0
         }
     },
     loc_txt = {
         ['name'] = 'Hand Trash Bin',
         ['text'] = {
-            [1] = 'Add 1 {C:attention}hand {}when any',
-            [2] = '{C:attention}Booster Pack{} is skipped'
+            [1] = 'Add 1 {C:attention}hand {}for',
+            [2] = 'next round when any',
+            [3] = '{C:attention}Booster Pack{} is skipped',
+            [4] = '{C:inactive}(Currently{} {C:attention}+#1#{}{C:inactive}){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -690,17 +711,34 @@ SMODS.Joker{ --Hand Trash Bin
     unlocked = true,
     discovered = true,
 
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.BoosterSkipped}}
+    end,
+
     calculate = function(self, card, context)
         if context.skipping_booster  then
                 return {
                     func = function()
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(card.ability.extra.hands).." Hand", colour = G.C.GREEN})
-                
-        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
-        ease_hands_played(card.ability.extra.hands)
-        
+                    card.ability.extra.BoosterSkipped = (card.ability.extra.BoosterSkipped) + 1
+                    return true
+                end
+                }
+        end
+        if context.setting_blind  then
+                local BoosterSkipped_value = card.ability.extra.BoosterSkipped
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring(BoosterSkipped_value).." Hand", colour = G.C.GREEN})
+                G.GAME.current_round.hands_left = G.GAME.current_round.hands_left + BoosterSkipped_value
                 return true
-            end
+            end,
+                    extra = {
+                        func = function()
+                    card.ability.extra.BoosterSkipped = 0
+                    return true
+                end,
+                        colour = G.C.BLUE
+                        }
                 }
         end
     end
