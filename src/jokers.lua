@@ -813,8 +813,9 @@ SMODS.Joker{ --VHS Tape
         x = 5,
         y = 1
     },
-    cost = 5,
-    rarity = 2,
+    pixel_size = { w = 67 },
+    cost = 7,
+    rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
