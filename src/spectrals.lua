@@ -47,7 +47,7 @@ SMODS.Consumable { -- Seal
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_seal("kassandra_turquoise_seal", nil, true)
+                        G.hand.highlighted[i]:set_seal("kassandra_turquoise", nil, true)
                         return true
                     end
                 }))

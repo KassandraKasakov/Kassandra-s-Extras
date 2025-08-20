@@ -2,7 +2,7 @@
   "id": "KassandraExtras",
   "name": "Kassandra's Extras",
   "author": ["Kassandra"],
-  "description": "oui",
+  "description": "Add things",
   "prefix": "kassandra",
   "main_file": "kassandraextras.lua",
   "version": "1.0.0",

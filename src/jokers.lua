@@ -251,7 +251,7 @@ SMODS.Joker{ --Blank Joker
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
-            if SMODS.get_enhancements(context.other_card)["m_kassandra_blank_card"] == true then
+            if SMODS.get_enhancements(context.other_card)["m_kassandra_blank"] == true then
                 return {
                     Xmult = card.ability.extra.Xmult
                 }
@@ -437,7 +437,7 @@ SMODS.Joker{ --Ghost Joker
                 local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
             local new_card = create_playing_card({
                 front = card_front,
-                center = G.P_CENTERS.m_kassandra_ghost_card
+                center = G.P_CENTERS.m_kassandra_ghos
             }, G.discard, true, false, nil, true)
             
             G.E_MANAGER:add_event(Event({
@@ -738,6 +738,120 @@ SMODS.Joker{ --Hand Trash Bin
                     return true
                 end,
                         colour = G.C.BLUE
+                        }
+                }
+        end
+    end
+}
+
+
+SMODS.Joker{ --Outline
+    key = "outline",
+    config = {
+        extra = {
+            blankcardsindeck = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Outline',
+        ['text'] = {
+            [1] = 'Gives {C:blue}+100{} Chips for each',
+            [2] = '{C:attention}Blank Card{} in your full deck',
+            [3] = '{C:inactive}(Currently {C:blue}+#1#{} Chips){}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 4,
+        y = 1
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_kassandra_blank') then count = count + 1 end end; return count end)()) * 100}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+                return {
+                    chips = ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_kassandra_blank') then count = count + 1 end end; return count end)()) * 100
+                }
+        end
+    end
+}
+
+
+SMODS.Joker{ --VHS Tape
+    key = "vhs",
+    config = {
+        extra = {
+            ante_value = 1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'VHS Tape',
+        ['text'] = {
+            [1] = 'If Game Over, prevents Death',
+            [2] = '{C:attention}-1{} ante',
+            [3] = '{C:red}self destructs{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 5,
+        y = 1
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over and context.main_eval  then
+                return {
+                    saved = true,
+                    message = localize('k_saved_ex'),
+                    extra = {
+                        message = "REWIND !",
+                        colour = G.C.WHITE,
+                        extra = {
+                            func = function()
+                    local mod = -card.ability.extra.ante_value
+		ease_ante(mod)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + mod
+				return true
+			end,
+		}))
+                    return true
+                end,
+                            message = "Ante -" .. card.ability.extra.ante_value,
+                            colour = G.C.FILTER,
+                        extra = {
+                            func = function()
+                card:start_dissolve()
+                return true
+            end,
+                            message = "Destroyed!",
+                            colour = G.C.RED
+                        }
+                        }
                         }
                 }
         end

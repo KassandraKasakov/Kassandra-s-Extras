@@ -491,7 +491,7 @@ SMODS.Consumable { --Virgo
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_blank_card'])
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_blank'])
                         return true
                     end
                 }))
@@ -852,7 +852,7 @@ SMODS.Consumable { --Aquarius
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_ghost_card'])
+                        G.hand.highlighted[i]:set_ability(G.P_CENTERS['m_kassandra_ghost'])
                         return true
                     end
                 }))

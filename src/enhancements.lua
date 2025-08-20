@@ -1,5 +1,5 @@
 SMODS.Enhancement { --Blank Card
-    key = 'blank_card',
+    key = 'blank',
     atlas = 'Enhancements',
     pos = { x = 0, y = 0 },
     loc_txt = {
@@ -20,7 +20,7 @@ SMODS.Enhancement { --Blank Card
 }
 
 SMODS.Enhancement { --Ghost Card
-    key = 'ghost_card',
+    key = 'ghost',
     atlas = 'Enhancements',
     pos = { x = 1, y = 0 },
     config = {
@@ -61,7 +61,7 @@ SMODS.Enhancement { --Ghost Card
 
 
 SMODS.Enhancement { --Soap Card
-    key = 'soap_card',
+    key = 'soap',
     atlas = 'Enhancements',
     pos = { x = 2, y = 0 },
     config = {
