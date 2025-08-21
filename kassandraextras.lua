@@ -61,8 +61,18 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 }):register()
 
+-- Booster atlas
+SMODS.Atlas({
+    key = "Booster", 
+    path = "boosters.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
 
 assert(SMODS.load_file("src/astrological.lua"))()
+assert(SMODS.load_file("src/boosters.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
