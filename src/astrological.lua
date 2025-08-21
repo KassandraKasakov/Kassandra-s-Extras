@@ -174,17 +174,14 @@ SMODS.Consumable { --Cancer
     soul_pos = { x = 4, y = 1 },
     pixel_size = { h = 63 },
     config = { extra = {
-        odds = 2,
-        perma_bonus_value = 15,
-        perma_bonus_value = 2
+        odds = 4,
+        perma_bonus_value = 5
     } },
     loc_txt = {
         name = 'Cancer',
         text = {
         [1] = 'Select {C:attention}1{} selected card',
-        [2] = '{C:green}1 in 2{} chance to add {C:blue}+15{} Chips',
-        [3] = '{C:green}1 in 2{} chance to add {C:red}+2{} Mult',
-        [4] = '{C:inactive}(DO NOT USE THIS WITH A CARD ALREADY UPGRADED){}'
+        [2] = '{C:green}1 in 4{} chance to add {C:red}+5{} Mult'
     }
     },
     cost = 3,
@@ -195,65 +192,7 @@ SMODS.Consumable { --Cancer
     use = function(self, card, area, copier)
         local used_card = copier or card
         if #G.hand.highlighted == 1 then
-            if SMODS.pseudorandom_probability(card, 'group_0_9d619148', 1, card.ability.extra.odds, 'c_modprefix') then
-                G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
-                func = function()
-                    play_sound('tarot1')
-                    used_card:juice_up(0.3, 0.5)
-                    return true
-                end
-            }))
-            for i = 1, #G.hand.highlighted do
-                local percent = 1.15 - (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        G.hand.highlighted[i]:flip()
-                        play_sound('card1', percent)
-                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
-                        return true
-                    end
-                }))
-            end
-            delay(0.2)
-            for i = 1, #G.hand.highlighted do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        G.hand.highlighted[i].ability.perma_bonus = G.hand.highlighted[i].ability.perma_bonus or 0
-                        G.hand.highlighted[i].ability.perma_bonus = G.hand.highlighted[i].ability.perma_bonus + 15
-                        return true
-                    end
-                }))
-            end
-            for i = 1, #G.hand.highlighted do
-                local percent = 0.85 + (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        G.hand.highlighted[i]:flip()
-                        play_sound('tarot2', percent, 0.6)
-                        G.hand.highlighted[i]:juice_up(0.3, 0.3)
-                        return true
-                    end
-                }))
-            end
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.2,
-                func = function()
-                    G.hand:unhighlight_all()
-                    return true
-                end
-            }))
-            delay(0.5)
-            end
-            if SMODS.pseudorandom_probability(card, 'group_1_cb0df3bf', 1, card.ability.extra.odds, 'c_modprefix') then
+            if SMODS.pseudorandom_probability(card, 'group_0_cb0df3bf', 1, card.ability.extra.odds, 'c_modprefix') then
                 G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -283,7 +222,7 @@ SMODS.Consumable { --Cancer
                     delay = 0.1,
                     func = function()
                         G.hand.highlighted[i].ability.perma_mult = G.hand.highlighted[i].ability.perma_mult or 0
-                        G.hand.highlighted[i].ability.perma_mult = G.hand.highlighted[i].ability.perma_mult + 2
+                        G.hand.highlighted[i].ability.perma_mult = G.hand.highlighted[i].ability.perma_mult + 5
                         return true
                     end
                 }))
