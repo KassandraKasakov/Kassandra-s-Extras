@@ -29,28 +29,11 @@ SMODS.Seal { -- Turquoise
         end
         if context.cardarea == G.hand and context.main_scoring then
             card.should_destroy = false
-            local created_joker = false
-                if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                    created_joker = true
-                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local joker_card = SMODS.add_card({ set = 'Joker' })
-                        if joker_card then
-                            
-                            
-                        end
-                        G.GAME.joker_buffer = 0
-                        return true
-                    end
-                }))
-                end
             card.should_destroy = true
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = created_joker and localize('k_plus_joker') or nil, colour = G.C.BLUE})
+            SMODS.calculate_effect({balance = true}, card)
         end
     end
 }
-
 
 SMODS.Seal { -- Orange
     key = 'orange',
