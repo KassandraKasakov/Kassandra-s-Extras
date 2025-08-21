@@ -40,7 +40,7 @@ SMODS.Enhancement { --Ghost Card
     shatters = true,
     replace_base_card = false,
     no_rank = false,
-    no_suit = true,
+    no_suit = false,
     always_scores = false,
     unlocked = true,
     discovered = true,
@@ -66,8 +66,8 @@ SMODS.Enhancement { --Soap Card
     pos = { x = 2, y = 0 },
     config = {
         extra = {
-            handsremaining = 0,
-            discardsremaining = 0
+            basehandsperround = 0,
+            basediscardsperround = 0
         }
     },
     loc_txt = {
@@ -88,11 +88,11 @@ SMODS.Enhancement { --Soap Card
     discovered = true,
     no_collection = false,
     loc_vars = function(self, info_queue, card)
-        return {vars = {((G.GAME.current_round.hands_left or 0)) * 10, (G.GAME.current_round.discards_left or 0)}}
+        return {vars = {((G.GAME.round_resets.hands or 0)) * 10, (G.GAME.round_resets.discards or 0)}}
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.hand and context.main_scoring then
-            return { chips = (G.GAME.current_round.hands_left) * 10, mult = G.GAME.current_round.discards_left }
+            return { chips = (G.GAME.round_resets.hands) * 10, mult = G.GAME.round_resets.discards }
         end
     end
 }

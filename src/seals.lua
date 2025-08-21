@@ -25,7 +25,7 @@ SMODS.Seal { -- Turquoise
                 end
             }))
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Card Destroyed!", colour = G.C.RED})
-            return
+            return 
         end
         if context.cardarea == G.hand and context.main_scoring then
             card.should_destroy = false

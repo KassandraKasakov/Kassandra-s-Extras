@@ -80,7 +80,7 @@ SMODS.Consumable { --Taurus
     loc_txt = {
         name = 'Taurus',
         text = {
-        [1] = 'Create a random {C:dark_edition}negative {}{C:attention}Joker{}'
+        [1] = 'Create a random {C:dark_edition}negative {}common {C:attention}Joker{}'
     }
     },
     cost = 3,
@@ -95,7 +95,7 @@ SMODS.Consumable { --Taurus
                   delay = 0.4,
                   func = function()
                       play_sound('timpani')
-                      local new_joker = SMODS.add_card({ set = 'Joker' })
+                      local new_joker = SMODS.add_card({ set = 'Joker', rarity = 'Common' })
                       if new_joker then
                           new_joker:set_edition({ negative = true }, true)
                       end
@@ -326,10 +326,13 @@ SMODS.Consumable { --Leo
     pos = { x = 5, y = 0 },
     soul_pos = { x = 5, y = 1 },
     pixel_size = { h = 63 },
+    config = { extra = {
+        cards_amount = 5
+    } },
     loc_txt = {
         name = 'Leo',
         text = {
-        [1] = 'Converts all cards in hand',
+        [1] = 'Converts {C:attention}5{} cards in hand',
         [2] = 'to a single random {C:attention}suit {}',
         [3] = 'and a random {C:attention}rank{}'
     }
@@ -341,93 +344,76 @@ SMODS.Consumable { --Leo
     can_repeat_soul = false,
     use = function(self, card, area, copier)
         local used_card = copier or card
+            local affected_cards = {}
+            local temp_hand = {}
+
+            for _, playing_card in ipairs(G.hand.cards) do temp_hand[#temp_hand + 1] = playing_card end
+            table.sort(temp_hand,
+                function(a, b)
+                    return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
+                end
+            )
+
+            pseudoshuffle(temp_hand, 12345)
+
+            for i = 1, math.min(card.ability.extra.cards_amount, #temp_hand) do 
+                affected_cards[#affected_cards + 1] = temp_hand[i] 
+            end
+
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
                     play_sound('tarot1')
-                    used_card:juice_up(0.3, 0.5)
+                    card:juice_up(0.3, 0.5)
                     return true
                 end
             }))
-            for i = 1, #G.hand.cards do
-                local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+            for i = 1, #affected_cards do
+                local percent = 1.15 - (i - 0.999) / (#affected_cards - 0.998) * 0.3
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.15,
                     func = function()
-                        G.hand.cards[i]:flip()
+                        affected_cards[i]:flip()
                         play_sound('card1', percent)
-                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        affected_cards[i]:juice_up(0.3, 0.3)
                         return true
                     end
                 }))
             end
-            local _suit = pseudorandom_element(SMODS.Suits, 'convert_all_suit')
-            for i = 1, #G.hand.cards do
+            delay(0.2)
+            for i = 1, #affected_cards do
                 G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
                     func = function()
-                        local _card = G.hand.cards[i]
-                        assert(SMODS.change_base(_card, _suit.key))
+                        local _suit = pseudorandom_element(SMODS.Suits, 'random_suit')
+                        assert(SMODS.change_base(affected_cards[i], _suit.key))
                         return true
                     end
                 }))
             end
-            for i = 1, #G.hand.cards do
-                local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
+            for i = 1, #affected_cards do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        local _rank = pseudorandom_element(SMODS.Ranks, 'random_rank')
+                        assert(SMODS.change_base(affected_cards[i], nil, _rank.key))
+                        return true
+                    end
+                }))
+            end
+            for i = 1, #affected_cards do
+                local percent = 0.85 + (i - 0.999) / (#affected_cards - 0.998) * 0.3
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.15,
                     func = function()
-                        G.hand.cards[i]:flip()
+                        affected_cards[i]:flip()
                         play_sound('tarot2', percent, 0.6)
-                        G.hand.cards[i]:juice_up(0.3, 0.3)
-                        return true
-                    end
-                }))
-            end
-            delay(0.5)
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
-                func = function()
-                    play_sound('tarot1')
-                    used_card:juice_up(0.3, 0.5)
-                    return true
-                end
-            }))
-            for i = 1, #G.hand.cards do
-                local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        G.hand.cards[i]:flip()
-                        play_sound('card1', percent)
-                        G.hand.cards[i]:juice_up(0.3, 0.3)
-                        return true
-                    end
-                }))
-            end
-            local _rank = pseudorandom_element(SMODS.Ranks, 'convert_all_rank')
-            for i = 1, #G.hand.cards do
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local _card = G.hand.cards[i]
-                        assert(SMODS.change_base(_card, nil, _rank.key))
-                        return true
-                    end
-                }))
-            end
-            for i = 1, #G.hand.cards do
-                local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.15,
-                    func = function()
-                        G.hand.cards[i]:flip()
-                        play_sound('tarot2', percent, 0.6)
-                        G.hand.cards[i]:juice_up(0.3, 0.3)
+                        affected_cards[i]:juice_up(0.3, 0.3)
                         return true
                     end
                 }))
@@ -648,12 +634,12 @@ SMODS.Consumable { --Scorpio
     soul_pos = { x = 2, y = 3 },
     pixel_size = { h = 63 },
     config = { extra = {
-        hand_size_value = 2
+        hand_size_value = 1
     } },
     loc_txt = {
         name = 'Scorpio',
         text = {
-        [1] = '{C:attention}+2{} Discard Size'
+        [1] = '{C:attention}+1{} Discard Size'
     }
     },
     cost = 3,
@@ -667,8 +653,8 @@ SMODS.Consumable { --Scorpio
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(2).." Hand Size", colour = G.C.BLUE})
-                    SMODS.change_discard_limit(2)
+                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(1).." Hand Size", colour = G.C.BLUE})
+                    SMODS.change_discard_limit(1)
                     return true
                 end
             }))
