@@ -858,3 +858,81 @@ SMODS.Joker{ --VHS Tape
         end
     end
 }
+
+
+SMODS.Joker{ --Vecnas House
+    key = "mansion",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Vecnas House',
+        ['text'] = {
+            [1] = 'Create copies of {C:attention}Ghost',
+            [2] = '{}cards when {C:attention}scored{} / {C:attention}discarded{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 6,
+        y = 1
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play  then
+            if SMODS.get_enhancements(context.other_card)["m_kassandra_ghost"] == true then
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local copied_card = copy_card(context.other_card, nil, nil, G.playing_card)
+                copied_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                G.deck:emplace(copied_card)
+                table.insert(G.playing_cards, copied_card)
+                playing_card_joker_effects({true})
+                
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        copied_card:start_materialize()
+                        return true
+                    end
+                }))
+                return {
+                    message = "Copied Card!"
+                }
+            end
+        end
+        if context.discard  then
+            if SMODS.get_enhancements(context.other_card)["m_kassandra_ghost"] == true then
+                return {
+                    func = function()
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        local copied_card = copy_card(context.other_card, nil, nil, G.playing_card)
+                        copied_card:add_to_deck()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        G.deck:emplace(copied_card)
+                        table.insert(G.playing_cards, copied_card)
+                        playing_card_joker_effects({true})
+                        
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                copied_card:start_materialize()
+                                return true
+                            end
+                        }))
+                    end,
+                    message = "Copied Card!"
+                }
+            end
+        end
+    end
+}
