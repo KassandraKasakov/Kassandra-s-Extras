@@ -40,7 +40,7 @@ SMODS.Enhancement { --Ghost Card
     shatters = true,
     replace_base_card = false,
     no_rank = false,
-    no_suit = true,
+    no_suit = false,
     always_scores = false,
     unlocked = true,
     discovered = true,
