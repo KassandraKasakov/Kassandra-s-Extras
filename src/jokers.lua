@@ -864,13 +864,16 @@ SMODS.Joker{ --Vecnas House
     key = "mansion",
     config = {
         extra = {
+            odds = 2,
+            odds2 = 2
         }
     },
     loc_txt = {
         ['name'] = 'Vecnas House',
         ['text'] = {
-            [1] = 'Create copies of {C:attention}Ghost',
-            [2] = '{}cards when {C:attention}scored{} / {C:attention}discarded{}'
+            [1] = '{C:green}1 in 2{} chance to',
+            [2] = 'create copies of {C:attention}Ghost',
+            [3] = '{}cards when {C:attention}scored{} / {C:attention}discarded{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -881,8 +884,8 @@ SMODS.Joker{ --Vecnas House
         x = 6,
         y = 1
     },
-    cost = 4,
-    rarity = 1,
+    cost = 5,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,
@@ -892,7 +895,8 @@ SMODS.Joker{ --Vecnas House
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
             if SMODS.get_enhancements(context.other_card)["m_kassandra_ghost"] == true then
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                if SMODS.pseudorandom_probability(card, 'group_0_27ee9c9c', 1, card.ability.extra.odds, 'j_modprefix_mansion') then
+                      G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                 local copied_card = copy_card(context.other_card, nil, nil, G.playing_card)
                 copied_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -906,15 +910,14 @@ SMODS.Joker{ --Vecnas House
                         return true
                     end
                 }))
-                return {
-                    message = "Copied Card!"
-                }
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Copied Card!", colour = G.C.GREEN})
+                  end
             end
         end
         if context.discard  then
             if SMODS.get_enhancements(context.other_card)["m_kassandra_ghost"] == true then
-                return {
-                    func = function()
+                if SMODS.pseudorandom_probability(card, 'group_0_1cff10a6', 1, card.ability.extra.odds, 'j_modprefix_mansion') then
+                      SMODS.calculate_effect({func = function()
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                         local copied_card = copy_card(context.other_card, nil, nil, G.playing_card)
                         copied_card:add_to_deck()
@@ -929,9 +932,9 @@ SMODS.Joker{ --Vecnas House
                                 return true
                             end
                         }))
-                    end,
-                    message = "Copied Card!"
-                }
+                    end}, card)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Copied Card!", colour = G.C.GREEN})
+                  end
             end
         end
     end
