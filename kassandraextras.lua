@@ -71,8 +71,17 @@ SMODS.Atlas({
 }):register()
 
 
+-- Edition atlas
+
+
+SMODS.Shader({ key = 'anaglyphic', path = 'anaglyphic.fs' }) -- Anaglyphic
+
+SMODS.Shader({ key = 'fluorescent', path = 'fluorescent.fs' }) -- Fluorescent
+
+
 assert(SMODS.load_file("src/astrological.lua"))()
 assert(SMODS.load_file("src/boosters.lua"))()
+assert(SMODS.load_file("src/editions.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
