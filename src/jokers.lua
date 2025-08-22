@@ -826,12 +826,9 @@ SMODS.Joker{ --VHS Tape
         if context.end_of_round and context.game_over and context.main_eval  then
                 return {
                     saved = true,
-                    message = localize('k_saved_ex'),
+                    message = "Rewind!",
                     extra = {
-                        message = "REWIND !",
-                        colour = G.C.WHITE,
-                        extra = {
-                            func = function()
+                        func = function()
                     local mod = -card.ability.extra.ante_value
 		ease_ante(mod)
 		G.E_MANAGER:add_event(Event({
@@ -843,15 +840,14 @@ SMODS.Joker{ --VHS Tape
                     return true
                 end,
                             message = "Ante -" .. card.ability.extra.ante_value,
-                            colour = G.C.FILTER,
+                        colour = G.C.FILTER,
                         extra = {
                             func = function()
                 card:start_dissolve()
                 return true
             end,
-                            message = "Destroyed!",
+                            message = "Broken!",
                             colour = G.C.RED
-                        }
                         }
                         }
                 }
@@ -935,6 +931,48 @@ SMODS.Joker{ --Vecnas House
                     end}, card)
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Copied Card!", colour = G.C.GREEN})
                   end
+            end
+        end
+    end
+}
+
+
+SMODS.Joker{ --Showerhead
+    key = "showerhead",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Showerhead',
+        ['text'] = {
+            [1] = 'All played {C:attention}Stone{} cards',
+            [2] = 'become {C:attention}Soap {}cards'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 7,
+        y = 1
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play  then
+            if SMODS.get_enhancements(context.other_card)["m_stone"] == true then
+                context.other_card:set_ability(G.P_CENTERS.m_kassandra_soap)
+                return {
+                    message = "Card Modified!"
+                }
             end
         end
     end

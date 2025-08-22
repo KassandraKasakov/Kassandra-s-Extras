@@ -72,28 +72,27 @@ SMODS.Seal { -- Golden Star
     pos = { x = 2, y = 0 },
     config = {
         extra = {
-            odds = 3,
-            dollars = 1
+            lowestrankinhand = 0,
+            odds = 3
         }
     },
     badge_colour = G.C.GOLD,
    loc_txt = {
-        name = 'Golden Star Seal',
-        label = 'Golden Star Seal',
+        name = 'Golden Star',
+        label = 'Golden Star',
         text = {
-        [1] = 'At end of round',
-        [2] = '{C:green}1 in 3{} chance to give',
-        [3] = '{C:money}$1{} for each card',
-        [4] = '{C:attention}held in hand{}'
+        [1] = '{C:green}1 in 3{} chance to',
+        [2] = 'give {C:money}$ lowest rank{}',
+        [3] = 'when {C:attention}held in hand{}'
     }
     },
     unlocked = true,
     discovered = true,
     no_collection = false,
     calculate = function(self, card, context)
-        if context.end_of_round and context.cardarea == G.hand and context.other_card == card and context.individual then
-            if SMODS.pseudorandom_probability(card, 'group_0_2b609b82', 1, card.ability.seal.extra.odds, 'm_modprefix') then
-                SMODS.calculate_effect({dollars = lenient_bignum(card.ability.seal.extra.dollars)}, card)
+        if context.cardarea == G.hand and context.main_scoring then
+            if SMODS.pseudorandom_probability(card, 'group_0_68237b19', 1, card.ability.seal.extra.odds, 'm_modprefix') then
+                SMODS.calculate_effect({dollars = lenient_bignum((function() local min = 14; for _, card in ipairs(G.hand and G.hand.cards or {}) do if card.base.id < min then min = card.base.id end end; return min end)())}, card)
             end
         end
     end,

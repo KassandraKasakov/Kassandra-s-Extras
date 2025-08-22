@@ -6,8 +6,8 @@ SMODS.Consumable { -- Seal
     loc_txt = {
         name = 'Seal',
         text = {
-        [1] = 'Add a {C:attention}Turquoise{} Seal',
-        [2] = 'to 1 selected',
+        [1] = 'Add a {C:attention}random{} Seal',
+        [2] = 'up to 3 selected',
         [3] = 'card in your hand'
     }
     },
@@ -18,7 +18,7 @@ SMODS.Consumable { -- Seal
     can_repeat_soul = false,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted == 1 then
+        if #G.hand.highlighted <= 3 then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -47,7 +47,9 @@ SMODS.Consumable { -- Seal
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_seal("kassandra_turquoise", nil, true)
+                        local seal_pool = {'Gold', 'Red', 'Blue', 'Purple', 'kassandra_turquoise', 'kassandra_orange', 'kassandra_golden_star', 'kassandra_rainbow'}
+                        local random_seal = pseudorandom_element(seal_pool, 'random_seal')
+                        G.hand.highlighted[i]:set_seal(random_seal, nil, true)
                         return true
                     end
                 }))
@@ -77,6 +79,6 @@ SMODS.Consumable { -- Seal
         end
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted == 1)
+        return (#G.hand.highlighted <= 3)
     end
 }
