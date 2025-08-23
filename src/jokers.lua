@@ -983,7 +983,7 @@ SMODS.Joker{ --Wallet
     key = "wallet",
     config = {
         extra = {
-            DollarMult = 1
+            DollarMult = 0
         }
     },
     loc_txt = {
@@ -991,7 +991,9 @@ SMODS.Joker{ --Wallet
         ['text'] = {
             [1] = 'When shop is {C:attention}entered {}',
             [2] = 'add {C:attention}2 Dollar{} cards in deck',
-            [3] = '{C:red}+#1#{} Mult'
+            [3] = '{C:attention}+1{} Mult for each',
+            [4] = 'scored {C:attention}Dollar {}card',
+            [5] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -1009,6 +1011,10 @@ SMODS.Joker{ --Wallet
     perishable_compat = true,
     unlocked = true,
     discovered = true,
+
+     loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.DollarMult}}
+    end,
 
     calculate = function(self, card, context)
         if context.starting_shop  then
