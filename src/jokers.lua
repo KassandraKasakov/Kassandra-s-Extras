@@ -284,7 +284,7 @@ SMODS.Joker{ --Time Capsule
     },
     cost = 4,
     rarity = 1,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -492,7 +492,7 @@ SMODS.Joker{ --Random Boss Blind
     },
     cost = 5,
     rarity = 2,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -816,7 +816,7 @@ SMODS.Joker{ --VHS Tape
     pixel_size = { w = 67 },
     cost = 7,
     rarity = 3,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -960,7 +960,7 @@ SMODS.Joker{ --Showerhead
     },
     cost = 4,
     rarity = 1,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -974,6 +974,107 @@ SMODS.Joker{ --Showerhead
                     message = "Card Modified!"
                 }
             end
+        end
+    end
+}
+
+
+SMODS.Joker{ --Wallet
+    key = "wallet",
+    config = {
+        extra = {
+            DollarMult = 1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Wallet',
+        ['text'] = {
+            [1] = 'When shop is {C:attention}entered {}',
+            [2] = 'add {C:attention}2 Dollar{} cards in deck',
+            [3] = '{C:red}+#1#{} Mult'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 8,
+        y = 1
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.starting_shop  then
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
+            local new_card = create_playing_card({
+                front = card_front,
+                center = G.P_CENTERS.m_kassandra_dollar
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card:start_materialize()
+                    G.play:emplace(new_card)
+                    return true
+                end
+            }))
+                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
+            local new_card = create_playing_card({
+                front = card_front,
+                center = G.P_CENTERS.m_kassandra_dollar
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card:start_materialize()
+                    G.play:emplace(new_card)
+                    return true
+                end
+            }))
+                return {
+                    func = function()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        return true
+                    end
+                }))
+                draw_card(G.play, G.deck, 90, 'up')
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+            end,
+                    message = "Added Card!",
+                    extra = {
+                        func = function()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        return true
+                    end
+                }))
+                draw_card(G.play, G.deck, 90, 'up')
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+            end,
+                            message = "Added Card!",
+                        colour = G.C.GREEN
+                        }
+                }
+        end
+        if context.individual and context.cardarea == G.play  then
+            if SMODS.get_enhancements(context.other_card)["m_kassandra_dollar"] == true then
+                card.ability.extra.DollarMult = (card.ability.extra.DollarMult) + 1
+            end
+        end
+        if context.cardarea == G.jokers and context.joker_main  then
+                return {
+                    mult = card.ability.extra.DollarMult
+                }
         end
     end
 }

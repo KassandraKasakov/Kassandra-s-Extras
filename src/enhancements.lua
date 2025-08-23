@@ -96,3 +96,41 @@ SMODS.Enhancement { --Soap Card
         end
     end
 }
+
+
+SMODS.Enhancement { -- Dollar Card
+    key = 'dollar',
+    atlas = 'Enhancements',
+    pos = { x = 3, y = 0 },
+    config = {
+        extra = {
+            dollars = 1
+        }
+    },
+    loc_txt = {
+        name = 'Dollar',
+        text = {
+        [1] = '{C:money}-$1{} when played',
+        [2] = 'and scored',
+        [3] = 'Add {C:red}+1{} Mult to {C:attention}Wallet{}'
+    }
+    },
+    any_suit = false,
+    replace_base_card = false,
+    no_rank = false,
+    no_suit = false,
+    always_scores = false,
+    unlocked = true,
+    discovered = true,
+    no_collection = false,
+    calculate = function(self, card, context)
+        if context.destroy_card and context.cardarea == G.play and context.destroy_card == card and card.should_destroy then
+            return { remove = true }
+        end
+        if context.main_scoring and context.cardarea == G.play then
+            card.should_destroy = false
+            card.should_destroy = true
+            SMODS.calculate_effect({dollars = -lenient_bignum(card.ability.extra.dollars)}, card)
+        end
+    end
+}
