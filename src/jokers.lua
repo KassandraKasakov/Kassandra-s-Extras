@@ -880,8 +880,8 @@ SMODS.Joker{ --Vecnas House
         x = 6,
         y = 1
     },
-    cost = 5,
-    rarity = 2,
+    cost = 7,
+    rarity = 3,
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,

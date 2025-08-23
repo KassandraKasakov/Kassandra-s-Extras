@@ -9,28 +9,15 @@ SMODS.Seal { -- Turquoise
         text = {
         [1] = 'Balance {C:blue}Chips{} and',
         [2] = '{C:red}Mult{} while this card',
-        [3] = 'stays in hand',
-        [4] = '{C:red}self destructs{}'
+        [3] = 'stays in hand'
     }
     },
     unlocked = true,
     discovered = true,
     no_collection = false,
     calculate = function(self, card, context)
-        if context.destroy_card and context.cardarea == G.play and context.destroy_card == card and card.should_destroy then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card:start_dissolve()
-                    return true
-                end
-            }))
-            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Card Destroyed!", colour = G.C.RED})
-            return 
-        end
         if context.cardarea == G.hand and context.main_scoring then
-            card.should_destroy = false
-            card.should_destroy = true
-            SMODS.calculate_effect({balance = true}, card)
+            return { balance = true }
         end
     end
 }
