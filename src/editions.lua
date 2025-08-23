@@ -1,5 +1,6 @@
 SMODS.Edition({ -- Anaglyphic
     key = "anaglyphic",
+    config = { repetitions = 1 },
     loc_txt = {
         name = "Anaglyphic",
         label = "Anaglyphic",
@@ -10,7 +11,6 @@ SMODS.Edition({ -- Anaglyphic
     shader = 'anaglyphic',
     discovered = true,
     unlocked = true,
-    config = { repetitions = 1 },
     in_shop = true,
     weight = 8,
     extra_cost = 4,
@@ -23,6 +23,7 @@ SMODS.Edition({ -- Anaglyphic
 
 SMODS.Edition({
     key = "fluorescent",
+    config = { p_dollars = 3 },
     loc_txt = {
         name = "Fluorescent",
         label = "Fluorescent",
@@ -31,10 +32,9 @@ SMODS.Edition({
             "card is scored"
         }
     },
+    shader = 'fluorescent',
     discovered = true,
     unlocked = true,
-    shader = 'fluorescent',
-    config = { p_dollars = 3 },
     in_shop = true,
     weight = 8,
     extra_cost = 4,
