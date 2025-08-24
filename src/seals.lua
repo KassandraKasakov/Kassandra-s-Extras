@@ -140,3 +140,5 @@ SMODS.Seal { -- Coin
     discovered = true,
     no_collection = false
 }
+
+-- Future addition : Button Seal

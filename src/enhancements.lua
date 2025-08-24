@@ -135,3 +135,5 @@ SMODS.Enhancement { -- Dollar Card
         end
     end
 }
+
+-- Future addition : Cardboard

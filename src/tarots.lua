@@ -163,3 +163,5 @@ SMODS.Consumable {
         return (#G.hand.highlighted == 1)
     end
 }
+
+-- Future addition : tarot cards

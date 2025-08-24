@@ -47,7 +47,7 @@ SMODS.Consumable { -- Seal
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        local seal_pool = {'Gold', 'Red', 'Blue', 'Purple', 'kassandra_turquoise', 'kassandra_orange', 'kassandra_golden_star', 'kassandra_rainbow'}
+                        local seal_pool = {'Gold', 'Red', 'Blue', 'Purple', 'kassandra_turquoise', 'kassandra_orange', 'kassandra_golden_star', 'kassandra_rainbow'} -- Add newer seals in this list here
                         local random_seal = pseudorandom_element(seal_pool, 'random_seal')
                         G.hand.highlighted[i]:set_seal(random_seal, nil, true)
                         return true

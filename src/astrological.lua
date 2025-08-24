@@ -26,6 +26,8 @@ SMODS.ConsumableType { --Def of Astrological Type
 }
 
 
+-- ALL CONSUMABLES HERE 
+
 SMODS.Consumable { --Aries
     key = 'aries',
     set = 'astrological',
@@ -855,3 +857,20 @@ SMODS.Consumable { --Pisces
         return true
     end
 }
+
+--[[
+List of all future Astrological cards :
+
+Andromeda
+Centaurus
+Crater
+Crux
+Ursa Major
+Ursa Minor
+Hercules
+Lynx
+Serpens
+Sextans
+Triangulum
+
+]]

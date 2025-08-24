@@ -161,3 +161,5 @@ SMODS.Booster { -- MEGA Astro
         G.booster_pack_sparkles:fade(1, 0)
     end,
 }
+
+-- future addition : Zodiac Booster Packs

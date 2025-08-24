@@ -7,50 +7,7 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 }):register()
 
--- Jokers atlas
-SMODS.Atlas({
-    key = "Jokers", 
-    path = "jokers.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-}):register()
 
--- Consumables atlas
-SMODS.Atlas({
-    key = "Consumables", 
-    path = "consumables.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-}):register()
-
--- Enhancements atlas
-SMODS.Atlas({
-    key = "Enhancements", 
-    path = "enhanced.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-}):register()
-
--- Seals atlas
-SMODS.Atlas({
-    key = "Seals", 
-    path = "seals.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-}):register()
-
--- Spectral atlas
-SMODS.Atlas({
-    key = "Spectral", 
-    path = "spectral.png", 
-    px = 71,
-    py = 95, 
-    atlas_table = "ASSET_ATLAS"
-}):register()
 
 -- Astrological atlas
 SMODS.Atlas({
@@ -61,6 +18,7 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 }):register()
 
+
 -- Booster atlas
 SMODS.Atlas({
     key = "Booster", 
@@ -70,6 +28,58 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 }):register()
 
+
+-- Enhancements atlas
+SMODS.Atlas({
+    key = "Enhancements", 
+    path = "enhanced.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
+-- Jokers atlas
+SMODS.Atlas({
+    key = "Jokers", 
+    path = "jokers.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
+-- Seals atlas
+SMODS.Atlas({
+    key = "Seals", 
+    path = "seals.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
+-- Spectral atlas
+SMODS.Atlas({
+    key = "Spectral", 
+    path = "spectral.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
+-- Consumables atlas
+SMODS.Atlas({
+    key = "Consumables", 
+    path = "consumables.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
+-- Load all files
 
 assert(SMODS.load_file("src/astrological.lua"))()
 assert(SMODS.load_file("src/boosters.lua"))()

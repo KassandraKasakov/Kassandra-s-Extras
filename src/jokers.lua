@@ -1161,3 +1161,5 @@ SMODS.Joker{ --Nobody
         end
     end
 }
+
+-- Future addition : Some cardboard themed jokers
