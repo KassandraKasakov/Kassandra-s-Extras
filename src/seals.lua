@@ -122,3 +122,21 @@ SMODS.Seal { -- Rainbow
         end
     end
 }
+
+
+SMODS.Seal { -- Coin
+    key = 'coin',
+    atlas = 'Seals',
+    pos = { x = 0, y = 1 },
+    badge_colour = HEX('ABABAB'),
+   loc_txt = {
+        name = 'Coin Seal',
+        label = 'Coin Seal',
+        text = {
+        [1] = 'Add {C:blue}+2{} Chips to {C:attention}Wallet{}'
+    }
+    },
+    unlocked = true,
+    discovered = true,
+    no_collection = false
+}

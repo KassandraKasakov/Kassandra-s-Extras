@@ -983,17 +983,19 @@ SMODS.Joker{ --Wallet
     key = "wallet",
     config = {
         extra = {
-            DollarMult = 0
+            DollarMult = 0,
+            CoinChips = 0
         }
     },
     loc_txt = {
         ['name'] = 'Wallet',
         ['text'] = {
-            [1] = 'When shop is {C:attention}entered {}',
-            [2] = 'add {C:attention}2 Dollar{} cards in deck',
-            [3] = '{C:attention}+1{} Mult for each',
-            [4] = 'scored {C:attention}Dollar {}card',
-            [5] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult){}'
+            [1] = 'When shop is entered',
+            [2] = 'add {C:attention}1 Dollar{} card and',
+            [3] = '{C:attention}1 Coin seal{} card in deck',
+            [4] = '{C:red}+1{} Mult for each scored {C:attention}Dollar{} card',
+            [5] = '{C:blue}+2{} Chips for each scored {C:attention}Coin seal{}',
+            [6] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult and{} {C:blue}+#2#{} {C:inactive}Chips){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -1012,8 +1014,8 @@ SMODS.Joker{ --Wallet
     unlocked = true,
     discovered = true,
 
-     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.DollarMult}}
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.DollarMult, card.ability.extra.CoinChips}}
     end,
 
     calculate = function(self, card, context)
@@ -1034,8 +1036,9 @@ SMODS.Joker{ --Wallet
                 local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
             local new_card = create_playing_card({
                 front = card_front,
-                center = G.P_CENTERS.m_kassandra_dollar
+                center = G.P_CENTERS.c_base
             }, G.discard, true, false, nil, true)
+            new_card:set_seal("kassandra_coin", true)
             
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -1072,14 +1075,31 @@ SMODS.Joker{ --Wallet
                         }
                 }
         end
+        if context.destroy_card and context.destroy_card.should_destroy  then
+            return { remove = true }
+        end
         if context.individual and context.cardarea == G.play  then
+            context.other_card.should_destroy = false
             if SMODS.get_enhancements(context.other_card)["m_kassandra_dollar"] == true then
+                context.other_card.should_destroy = true
                 card.ability.extra.DollarMult = (card.ability.extra.DollarMult) + 1
+                return {
+                    message = "Destroyed!"
+                }
+            elseif context.other_card.seal == "Kassandra_coin" then
+                context.other_card.should_destroy = true
+                card.ability.extra.CoinChips = (card.ability.extra.CoinChips) + 2
+                return {
+                    message = "Destroyed!"
+                }
             end
         end
         if context.cardarea == G.jokers and context.joker_main  then
                 return {
-                    mult = card.ability.extra.DollarMult
+                    chips = card.ability.extra.CoinChips,
+                    extra = {
+                        mult = card.ability.extra.DollarMult
+                        }
                 }
         end
     end

@@ -108,7 +108,7 @@ SMODS.Enhancement { -- Dollar Card
         }
     },
     loc_txt = {
-        name = 'Dollar',
+        name = 'Dollar Card',
         text = {
         [1] = '{C:money}-$1{} when played',
         [2] = 'and scored',
@@ -116,6 +116,7 @@ SMODS.Enhancement { -- Dollar Card
     }
     },
     any_suit = false,
+    shatters = true,
     replace_base_card = false,
     no_rank = false,
     no_suit = false,
