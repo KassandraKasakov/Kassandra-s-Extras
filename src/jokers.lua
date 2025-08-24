@@ -984,18 +984,20 @@ SMODS.Joker{ --Wallet
     config = {
         extra = {
             DollarMult = 0,
-            CoinChips = 0
+            CoinChips = 0,
+            odds = 2
         }
     },
     loc_txt = {
         ['name'] = 'Wallet',
         ['text'] = {
-            [1] = 'When shop is entered',
-            [2] = 'add {C:attention}1 Dollar{} card and',
-            [3] = '{C:attention}1 Coin seal{} card in deck',
-            [4] = '{C:red}+1{} Mult for each scored {C:attention}Dollar{} card',
-            [5] = '{C:blue}+2{} Chips for each scored {C:attention}Coin seal{}',
-            [6] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult and{} {C:blue}+#2#{} {C:inactive}Chips){}'
+            [1] = 'When {C:attention}Boss {}Blind is defeated',
+            [2] = '{C:green}1 in 2{} chance to add',
+            [3] = '{C:attention}1 Dollar{} card and',
+            [4] = '{C:attention}1 Coin seal{} card in deck',
+            [5] = '{C:red}+1{} Mult for each scored {C:attention}Dollar{} card',
+            [6] = '{C:blue}+2{} Chips for each scored {C:attention}Coin seal{}',
+            [7] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult and{} {C:blue}+#2#{} {C:inactive}Chips){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -1015,66 +1017,11 @@ SMODS.Joker{ --Wallet
     discovered = true,
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.DollarMult, card.ability.extra.CoinChips}}
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_modprefix_wallet') 
+        return {vars = {card.ability.extra.DollarMult, card.ability.extra.CoinChips, new_numerator, new_denominator}}
     end,
 
     calculate = function(self, card, context)
-        if context.starting_shop  then
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
-            local new_card = create_playing_card({
-                front = card_front,
-                center = G.P_CENTERS.m_kassandra_dollar
-            }, G.discard, true, false, nil, true)
-            
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    new_card:start_materialize()
-                    G.play:emplace(new_card)
-                    return true
-                end
-            }))
-                local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
-            local new_card = create_playing_card({
-                front = card_front,
-                center = G.P_CENTERS.c_base
-            }, G.discard, true, false, nil, true)
-            new_card:set_seal("kassandra_coin", true)
-            
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    new_card:start_materialize()
-                    G.play:emplace(new_card)
-                    return true
-                end
-            }))
-                return {
-                    func = function()
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.deck.config.card_limit = G.deck.config.card_limit + 1
-                        return true
-                    end
-                }))
-                draw_card(G.play, G.deck, 90, 'up')
-                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
-            end,
-                    message = "Added Card!",
-                    extra = {
-                        func = function()
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.deck.config.card_limit = G.deck.config.card_limit + 1
-                        return true
-                    end
-                }))
-                draw_card(G.play, G.deck, 90, 'up')
-                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
-            end,
-                            message = "Added Card!",
-                        colour = G.C.GREEN
-                        }
-                }
-        end
         if context.destroy_card and context.destroy_card.should_destroy  then
             return { remove = true }
         end
@@ -1086,7 +1033,7 @@ SMODS.Joker{ --Wallet
                 return {
                     message = "Destroyed!"
                 }
-            elseif context.other_card.seal == "kassandra_coin" then
+            elseif context.other_card.seal == "Kassandra_coin" then
                 context.other_card.should_destroy = true
                 card.ability.extra.CoinChips = (card.ability.extra.CoinChips) + 2
                 return {
@@ -1101,6 +1048,63 @@ SMODS.Joker{ --Wallet
                         mult = card.ability.extra.DollarMult
                         }
                 }
+        end
+        if context.end_of_round and context.main_eval and G.GAME.blind.boss  then
+            if true then
+                if SMODS.pseudorandom_probability(card, 'group_0_71f70325', 1, card.ability.extra.odds, 'j_modprefix_wallet') then
+                      local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
+            local new_card = create_playing_card({
+                front = card_front,
+                center = G.P_CENTERS.m_kassandra_dollar
+            }, G.discard, true, false, nil, true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card:start_materialize()
+                    G.play:emplace(new_card)
+                    return true
+                end
+            }))
+                        SMODS.calculate_effect({func = function()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        return true
+                    end
+                }))
+                draw_card(G.play, G.deck, 90, 'up')
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+            end}, card)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Added Card!", colour = G.C.GREEN})
+                  end
+                if SMODS.pseudorandom_probability(card, 'group_1_5e2291f8', 1, card.ability.extra.odds, 'j_modprefix_wallet') then
+                      local card_front = pseudorandom_element(G.P_CARDS, pseudoseed('add_card'))
+            local new_card = create_playing_card({
+                front = card_front,
+                center = G.P_CENTERS.c_base
+            }, G.discard, true, false, nil, true)
+            new_card:set_seal("kassandra_coin", true)
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    new_card:start_materialize()
+                    G.play:emplace(new_card)
+                    return true
+                end
+            }))
+                        SMODS.calculate_effect({func = function()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        return true
+                    end
+                }))
+                draw_card(G.play, G.deck, 90, 'up')
+                SMODS.calculate_context({ playing_card_added = true, cards = { new_card } })
+            end}, card)
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Added Card!", colour = G.C.GREEN})
+                  end
+            end
         end
     end
 }

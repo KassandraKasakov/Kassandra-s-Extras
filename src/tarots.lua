@@ -90,7 +90,7 @@ SMODS.Consumable {
     loc_txt = {
         name = 'The Soap',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected cards',
+        [1] = 'Enhances {C:attention}1{} selected card',
         [2] = 'into a {C:attention}Soap Card{}'
     }
     },
@@ -101,7 +101,7 @@ SMODS.Consumable {
     can_repeat_soul = false,
     use = function(self, card, area, copier)
         local used_card = copier or card
-        if #G.hand.highlighted <= 2 then
+        if #G.hand.highlighted == 1 then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -160,6 +160,6 @@ SMODS.Consumable {
         end
     end,
     can_use = function(self, card)
-        return (#G.hand.highlighted <= 2)
+        return (#G.hand.highlighted == 1)
     end
 }
