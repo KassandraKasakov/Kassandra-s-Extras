@@ -1108,3 +1108,56 @@ SMODS.Joker{ --Wallet
         end
     end
 }
+
+
+SMODS.Joker{ --Nobody
+    key = "nobody",
+    config = {
+        extra = {
+            blankcardsindeck = 1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Nobody',
+        ['text'] = {
+            [1] = 'Gives {C:red}^0.1{} Mult for each',
+            [2] = '{C:attention}Blank Card{} in your full deck',
+            [3] = '{C:inactive}(Currently {C:red}^#1#{} {C:inactive}Mult){}{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 1,
+        y = 2
+    },
+    cost = 20,
+    rarity = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    in_pool = function(self, args)
+          return (
+          not args 
+          or args.source ~= 'sho' 
+          or args.source == 'buf' or args.source == 'jud' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and true
+      end,
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_kassandra_blank') then count = count + 1 end end; return count end)()) * 0.1}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+                return {
+                    e_mult = card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_kassandra_blank') then count = count + 1 end end; return count end)()) * 0.1
+                }
+        end
+    end
+}
