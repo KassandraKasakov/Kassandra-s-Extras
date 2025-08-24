@@ -1086,7 +1086,7 @@ SMODS.Joker{ --Wallet
                 return {
                     message = "Destroyed!"
                 }
-            elseif context.other_card.seal == "Kassandra_coin" then
+            elseif context.other_card.seal == "kassandra_coin" then
                 context.other_card.should_destroy = true
                 card.ability.extra.CoinChips = (card.ability.extra.CoinChips) + 2
                 return {
