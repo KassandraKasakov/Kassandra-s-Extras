@@ -535,7 +535,7 @@ SMODS.Joker{ --Tiny Boss
     key = "tiny_boss",
     config = {
         extra = {
-            blind_size = 2,
+            blind_size = 0.5,
             blind_size2 = 2,
             blind_size3 = 2
         }
@@ -563,23 +563,13 @@ SMODS.Joker{ --Tiny Boss
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    in_pool = function(self, args)
-          return (
-          not args 
-            
-          or args.source == 'sho' or args.source == 'buf' or args.source == 'jud' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
-          )
-          and true
-      end
-    ,
-
-    calculate = function(self, card, context)
+     calculate = function(self, card, context)
         if context.setting_blind  then
             if (G.GAME.blind.boss and G.GAME.round_resets.ante <= 8) then
                 return {
                     func = function()
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "/"..tostring(card.ability.extra.blind_size).." Blind Size", colour = G.C.GREEN})
-                G.GAME.blind.chips = G.GAME.blind.chips / card.ability.extra.blind_size
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size).." Blind Size", colour = G.C.GREEN})
+                G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_size
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 G.HUD_blind:recalculate()
                 return true
@@ -1158,6 +1148,67 @@ SMODS.Joker{ --Nobody
                 return {
                     e_mult = card.ability.extra.blankcardsindeck + ((function() local count = 0; for _, card in ipairs(G.playing_cards or {}) do if SMODS.has_enhancement(card, 'm_kassandra_blank') then count = count + 1 end end; return count end)()) * 0.1
                 }
+        end
+    end
+}
+
+
+SMODS.Joker{ --STOP Sign
+    key = "stop",
+    config = {
+        extra = {
+            discard_change = 0,
+            blind_size = 0.75
+        }
+    },
+    loc_txt = {
+        ['name'] = 'STOP Sign',
+        ['text'] = {
+            [1] = '{C:red}X0.75{} {C:attention}Boss Blind{} size',
+            [2] = 'Play with {C:attention}0{} discards'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 2,
+        y = 2
+    },
+    pixel_size = { h = 71 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.setting_blind  then
+            if G.GAME.blind.boss then
+                return {
+                    func = function()
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "X"..tostring(card.ability.extra.blind_size).." Blind Size", colour = G.C.GREEN})
+                G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_size
+                G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                G.HUD_blind:recalculate()
+                return true
+            end
+                }
+            end
+        end
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.original_discards = G.GAME.round_resets.discards
+        G.GAME.round_resets.discards = card.ability.extra.discard_change
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability.extra.original_discards then
+            G.GAME.round_resets.discards = card.ability.extra.original_discards
         end
     end
 }

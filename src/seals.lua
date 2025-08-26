@@ -136,6 +136,7 @@ SMODS.Seal { -- Coin
         [1] = 'Add {C:blue}+2{} Chips to {C:attention}Wallet{}'
     }
     },
+    weight = 0,
     unlocked = true,
     discovered = true,
     no_collection = false
