@@ -128,7 +128,7 @@ SMODS.Seal { -- Coin
     key = 'coin',
     atlas = 'Seals',
     pos = { x = 0, y = 1 },
-    badge_colour = HEX('ABABAB'),
+    badge_colour = G.C.GOLD,
    loc_txt = {
         name = 'Coin Seal',
         label = 'Coin Seal',
@@ -140,6 +140,41 @@ SMODS.Seal { -- Coin
     unlocked = true,
     discovered = true,
     no_collection = false
+}
+
+
+SMODS.Seal {
+    key = 'egg',
+    atlas = 'Seals',
+    pos = { x = 1, y = 1 },
+    badge_colour = HEX('EE82EE'),
+    config = {
+        extra = {
+            dollars = 1
+        }
+    },
+   loc_txt = {
+        name = 'Egg Seal',
+        label = 'Egg Seal',
+        text = {
+        [1] = 'Earn {C:money}$1{} when scored'
+    }
+    },
+    unlocked = true,
+    discovered = true,
+    no_collection = false,
+    calculate = function(self, card, context)
+        if context.main_scoring and context.cardarea == G.play then
+            return { dollars = lenient_bignum(card.ability.seal.extra.dollars) }
+        end
+    end,
+    draw = function(self, card, layer)
+        if (layer == 'card' or layer == 'both') and card.sprite_facing == 'front' then
+            G.shared_seals[card.seal].role.draw_major = card
+            G.shared_seals[card.seal]:draw_shader('dissolve', nil, nil, nil, card.children.center)
+            G.shared_seals[card.seal]:draw_shader('voucher', nil, card.ARGS.send_to_shader, nil, card.children.center)
+        end
+    end
 }
 
 -- Future addition : Button Seal
