@@ -827,7 +827,7 @@ SMODS.Consumable { --Pisces
     loc_txt = {
         name = 'Pisces',
         text = {
-        [1] = 'Create a random {C:diamonds}Astrological{} Card'
+        [1] = 'Create a random {C:planet}Astrological{} Card'
     }
     },
     cost = 3,
