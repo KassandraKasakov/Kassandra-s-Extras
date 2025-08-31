@@ -147,7 +147,7 @@ SMODS.Seal {
     key = 'egg',
     atlas = 'Seals',
     pos = { x = 1, y = 1 },
-    badge_colour = HEX('EE82EE'),
+    badge_colour = G.C.GOLD,
     config = {
         extra = {
             dollars = 1

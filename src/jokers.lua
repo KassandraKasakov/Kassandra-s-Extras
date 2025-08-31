@@ -1213,4 +1213,48 @@ SMODS.Joker{ --STOP Sign
     end
 }
 
+
+SMODS.Joker{ --Hanging Chad
+    key = "ballot2",
+    config = {
+        extra = {
+            repetitions = 2
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Hanging Chad',
+        ['text'] = {
+            [1] = 'Retrigger {C:attention}last{} played',
+            [2] = 'card used in scoring',
+            [3] = '{C:attention}2{} additional times'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 3,
+        y = 2
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play  then
+            if context.other_card == context.scoring_hand[#context.scoring_hand] then
+                return {
+                    repetitions = card.ability.extra.repetitions,
+                    message = localize('k_again_ex')
+                }
+            end
+        end
+    end
+}
+
 -- Future addition : Some cardboard themed jokers

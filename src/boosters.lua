@@ -3,8 +3,8 @@ SMODS.Booster { -- Astro
     loc_txt = {
         name = "Astro Pack",
         text = {
-            "Choose 1 of up to",
-            "3 Astrological cards to",
+            "Choose {C:attention}1{} of up to",
+            "{C:attention}3{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Astro Pack"
@@ -32,7 +32,7 @@ SMODS.Booster { -- Astro
     end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, HEX("000000"))
-        ease_background_colour({ new_colour = HEX('000000'), special_colour = HEX("cad696"), contrast = 2 })
+        ease_background_colour({ new_colour = HEX('2f4746'), special_colour = HEX("637676"), contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -57,8 +57,8 @@ SMODS.Booster { -- JUMBO Astro
     loc_txt = {
         name = "Jumbo Astro Pack",
         text = {
-            "Choose 1 of up to",
-            "5 Astrological cards to",
+            "Choose {C:attention}1{} of up to",
+            "{C:attention}5{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Jumbo Astro Pack"
@@ -86,8 +86,8 @@ SMODS.Booster { -- JUMBO Astro
         }
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, HEX("e38ee1"))
-        ease_background_colour({ new_colour = HEX('e38ee1'), special_colour = HEX("7eded7"), contrast = 2 })
+        ease_colour(G.C.DYN_UI.MAIN, HEX("000000"))
+        ease_background_colour({ new_colour = HEX('2f4746'), special_colour = HEX("637676"), contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
@@ -112,8 +112,8 @@ SMODS.Booster { -- MEGA Astro
     loc_txt = {
         name = "Mega Astro Pack",
         text = {
-            "Choose 2 of up to",
-            "5 Astrological cards to",
+            "Choose {C:attention}2{} of up to",
+            "{C:attention}5{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Mega Astro Pack"
@@ -142,8 +142,8 @@ SMODS.Booster { -- MEGA Astro
         }
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, HEX("07032b"))
-        ease_background_colour({ new_colour = HEX('07032b'), special_colour = HEX("5d9dda"), contrast = 2 })
+        ease_colour(G.C.DYN_UI.MAIN, HEX("000000"))
+        ease_background_colour({ new_colour = HEX('2f4746'), special_colour = HEX("637676"), contrast = 2 })
     end,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {

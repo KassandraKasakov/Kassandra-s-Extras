@@ -1,3 +1,24 @@
+G.KASSANDRA = {}
+G.KASSANDRA.C = {}
+G.KASSANDRA.FUNCS = {}
+G.KASSANDRA.C.astro_light = HEX("637676")
+G.KASSANDRA.C.astro_dark = HEX("2f4746")
+
+--[[ don't work
+
+local lc = loc_colour
+function loc_colour(_c, _default)
+    if not G.ARGS.LOC_COLOURS then
+        lc()
+    end
+	G.ARGS.LOC_COLOURS.astro = HEX('46605f')
+    return lc(_c, _default)
+end
+]]
+
+
+
+
 -- ModIcon atlas
 SMODS.Atlas({
     key = "modicon", 

@@ -1,8 +1,8 @@
 SMODS.ConsumableType { --Def of Astrological Type
     key = 'astrological',
     shader = 'tarot',
-    primary_colour = HEX('757cdc'),
-    secondary_colour = HEX('757cdc'),
+    primary_colour = G.KASSANDRA.C.astro_light,
+    secondary_colour = G.KASSANDRA.C.astro_dark,
     collection_rows = { 6, 6 },
     shop_rate = 4,
     cards = {
@@ -123,7 +123,7 @@ SMODS.Consumable { --Gemini
         copy_cards_amount = 2
     } },
     loc_txt = {
-        name = 'III - Gemini',
+        name = 'Gemini',
         text = {
         [1] = 'Create {C:attention}2{} copies of {C:attention}1{} selected card'
     }
@@ -375,7 +375,7 @@ SMODS.Consumable { --Virgo
     soul_pos = { x = 6, y = 1 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'VI - Virgo',
+        name = 'Virgo',
         text = {
         [1] = 'Enhances {C:attention}2{} selected',
         [2] = 'cards into a',
@@ -461,7 +461,7 @@ SMODS.Consumable { --Libra
     soul_pos = { x = 1, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'VII - Libra',
+        name = 'Libra',
         text = {
         [1] = 'Add a random {C:dark_edition}edition{}',
         [2] = 'to {C:attention}1{} selected card',
@@ -615,7 +615,7 @@ SMODS.Consumable { --Sagittarius
     soul_pos = { x = 3, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'IX - Sagittarius',
+        name = 'Sagittarius',
         text = {
         [1] = 'Upgrade a random',
         [2] = '{C:attention}poker hand{} by {C:attention}3{} level'
@@ -738,7 +738,7 @@ SMODS.Consumable { --Aquarius
     soul_pos = { x = 5, y = 3 },
     pixel_size = { h = 63 },
     loc_txt = {
-        name = 'XI - Aquarius',
+        name = 'Aquarius',
         text = {
         [1] = 'Enhances {C:attention}1{} selected card into a {C:attention}Ghost{} Card'
     }
