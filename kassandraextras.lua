@@ -30,6 +30,16 @@ SMODS.Atlas({
 
 
 
+-- Zodiac atlas
+SMODS.Atlas({
+    key = "Zodiac", 
+    path = "zodiac.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
 -- Astrological atlas
 SMODS.Atlas({
     key = "Astrological", 
@@ -109,3 +119,4 @@ assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
 assert(SMODS.load_file("src/spectrals.lua"))()
 assert(SMODS.load_file("src/tarots.lua"))()
+assert(SMODS.load_file("src/zodiac.lua"))()
