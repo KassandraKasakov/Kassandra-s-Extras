@@ -222,7 +222,7 @@ SMODS.Joker{ --Blank Joker
     key = "blank_joker",
     config = {
         extra = {
-            emult = 1.1
+            Xmult = 5
         }
     },
     loc_txt = {
