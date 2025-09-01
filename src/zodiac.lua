@@ -3,7 +3,7 @@ SMODS.ConsumableType { --Def of Zodiac Type
     primary_colour = G.KASSANDRA.C.astro_light,
     secondary_colour = G.KASSANDRA.C.astro_dark,
     collection_rows = { 6, 6 },
-    shop_rate = 2,
+    shop_rate = 1,
     cards = {
         ['c_kassandra_aquarius'] = true,
         ['c_kassandra_aries'] = true,
