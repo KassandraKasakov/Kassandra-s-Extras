@@ -4,12 +4,12 @@ SMODS.Booster { -- Astro
         name = "Astro Pack",
         text = {
             "Choose {C:attention}1{} of up to",
-            "{C:attention}3{} {C:planet}Astrological{} cards to",
+            "{C:attention}5{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Astro Pack"
     },
-    config = { extra = 3, choose = 1 },
+    config = { extra = 5, choose = 1 },
     atlas = "Booster",
     pos = { x = 0, y = 0 },
     draw_hand = false,
@@ -86,12 +86,12 @@ SMODS.Booster { -- JUMBO Astro
         name = "Jumbo Astro Pack",
         text = {
             "Choose {C:attention}1{} of up to",
-            "{C:attention}5{} {C:planet}Astrological{} cards to",
+            "{C:attention}7{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Jumbo Astro Pack"
     },
-    config = { extra = 5, choose = 1 },
+    config = { extra = 7, choose = 1 },
     cost = 6,
     atlas = "Booster",
     pos = { x = 1, y = 0 },
@@ -169,12 +169,12 @@ SMODS.Booster { -- MEGA Astro
         name = "Mega Astro Pack",
         text = {
             "Choose {C:attention}2{} of up to",
-            "{C:attention}5{} {C:planet}Astrological{} cards to",
+            "{C:attention}7{} {C:planet}Astrological{} cards to",
             "be used immediately"
         },
         group_name = "Mega Astro Pack"
     },
-    config = { extra = 5, choose = 2 },
+    config = { extra = 7, choose = 2 },
     cost = 8,
     weight = 0.25,
     atlas = "Booster",
@@ -260,12 +260,12 @@ SMODS.Booster { -- Zodiac
         name = "Zodiac Pack",
         text = {
             "Choose {C:attention}1{} of up to",
-            "{C:attention}3{} {C:planet}Zodiac{} cards to",
+            "{C:attention}5{} {C:planet}Zodiac{} cards to",
             "be used immediately"
         },
         group_name = "Zodiac Pack"
     },
-    config = { extra = 3, choose = 1 },
+    config = { extra = 5, choose = 1 },
     atlas = "Booster",
     pos = { x = 0, y = 1 },
     draw_hand = false,
@@ -314,12 +314,12 @@ SMODS.Booster { -- JUMBO Zodiac
         name = "Jumbo Zodiac Pack",
         text = {
             "Choose {C:attention}1{} of up to",
-            "{C:attention}5{} {C:planet}Zodiac{} cards to",
+            "{C:attention}7{} {C:planet}Zodiac{} cards to",
             "be used immediately"
         },
         group_name = "Jumbo Zodiac Pack"
     },
-    config = { extra = 5, choose = 1 },
+    config = { extra = 7, choose = 1 },
     cost = 6,
     atlas = "Booster",
     pos = { x = 1, y = 1 },
@@ -369,12 +369,12 @@ SMODS.Booster { -- MEGA Zodiac
         name = "Mega Zodiac Pack",
         text = {
             "Choose {C:attention}2{} of up to",
-            "{C:attention}5{} {C:planet}Zodiac{} cards to",
+            "{C:attention}7{} {C:planet}Zodiac{} cards to",
             "be used immediately"
         },
         group_name = "Mega Zodiac Pack"
     },
-    config = { extra = 5, choose = 2 },
+    config = { extra = 7, choose = 2 },
     cost = 8,
     weight = 0.25,
     atlas = "Booster",
