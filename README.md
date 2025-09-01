@@ -4,10 +4,10 @@ I added things to the game
 # Content
 
 The mod currently adds:
-- A brand new Consumable type: Astrological Cards
-- 20 Jokers
-- 15 Consumables
-- 4 Enhancements and 5 Seals
+- Two brand new Consumable type: Astrological and Zodiac Cards
+- 22 Jokers
+- 27 Consumables
+- 4 Enhancements and 6 Seals
 - More things coming soon!
 
 
