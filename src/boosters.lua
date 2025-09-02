@@ -1,5 +1,7 @@
 SMODS.Booster { -- Astro
     key = 'astro_pack',
+    group_key = "k_astro_pack",
+    kind = 'kassandra_Astro',
     loc_txt = {
         name = "Astro Pack",
         text = {
@@ -82,6 +84,8 @@ SMODS.Booster { -- Astro
 
 SMODS.Booster { -- JUMBO Astro
     key = 'jumbo_astro_pack',
+    group_key = "k_astro_pack",
+    kind = 'kassandra_Astro',
     loc_txt = {
         name = "Jumbo Astro Pack",
         text = {
@@ -165,6 +169,8 @@ SMODS.Booster { -- JUMBO Astro
 
 SMODS.Booster { -- MEGA Astro
     key = 'mega_astro_pack',
+    group_key = "k_astro_pack",
+    kind = 'kassandra_Astro',
     loc_txt = {
         name = "Mega Astro Pack",
         text = {
@@ -256,6 +262,8 @@ SMODS.Booster { -- MEGA Astro
 
 SMODS.Booster { -- Zodiac
     key = 'zodiac_pack',
+    group_key = "k_zodiac_pack",
+    kind = 'kassandra_Zodiac',
     loc_txt = {
         name = "Zodiac Pack",
         text = {
@@ -310,6 +318,8 @@ SMODS.Booster { -- Zodiac
 
 SMODS.Booster { -- JUMBO Zodiac
     key = 'jumbo_zodiac_pack',
+    group_key = "k_zodiac_pack",
+    kind = 'kassandra_Zodiac',
     loc_txt = {
         name = "Jumbo Zodiac Pack",
         text = {
@@ -365,6 +375,8 @@ SMODS.Booster { -- JUMBO Zodiac
 
 SMODS.Booster { -- MEGA Zodiac
     key = 'mega_zodiac_pack',
+    group_key = "k_zodiac_pack",
+    kind = 'kassandra_Zodiac',
     loc_txt = {
         name = "Mega Zodiac Pack",
         text = {
