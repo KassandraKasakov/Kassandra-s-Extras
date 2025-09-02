@@ -14,6 +14,8 @@ The mod currently adds:
 
 Thanks to [Joker Forge](https://jokerforge.jaydchw.com) and [Vanilla Remade](https://github.com/nh6574/VanillaRemade/tree/main) that helped me making this mod!
 
+I'm using some shaders from Cryptid. Sorry.
+
 # Requirements
 - [Steamodded](https://github.com/Steamopollys/Steamodded)
 - [Lovely](https://github.com/ethangreen-dev/lovely-injector)
