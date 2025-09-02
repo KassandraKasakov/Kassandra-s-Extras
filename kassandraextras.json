@@ -1,16 +1,20 @@
 {
   "id": "KassandraExtras",
   "name": "Kassandra's Extras",
+	"display_name": "Kassandra",
   "author": ["Kassandra"],
   "description": "Add things I like",
   "prefix": "kassandra",
   "main_file": "kassandraextras.lua",
   "version": "1.1.a",
   "priority": 0,
-  "badge_colour": "31ceac",
+  "badge_colour": "c0a9db",
   "badge_text_colour": "FFFFFF",
   "dependencies": [
     "Steamodded (>=1.0.0~BETA-0711a)",
 		"Talisman (>=2.2.0a)"
+  ],
+  "conflicts": [
+    "Cryptid (>=0.5.12~dev)"
   ]
 }

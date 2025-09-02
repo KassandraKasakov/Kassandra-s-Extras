@@ -110,10 +110,24 @@ SMODS.Atlas({
 }):register()
 
 
+
+-- Shaders
+--SMODS.Shader({ key = 'anaglyphic', path = 'anaglyphic.fs' })
+--SMODS.Shader({ key = 'fluorescent', path = 'fluorescent.fs' })
+--SMODS.Shader({ key = 'greyscale', path = 'greyscale.fs' })
+--SMODS.Shader({ key = 'laminated', path = 'laminated.fs' })
+--SMODS.Shader({ key = 'monochrome', path = 'monochrome.fs' })
+
+-- From Cryptid
+SMODS.Shader({ key = 'astral', path = 'astral.fs' })
+--SMODS.Shader({ key = 'glitched_b', path = 'glitched_b.fs' })
+
+
 -- Load all files
 
 assert(SMODS.load_file("src/astrological.lua"))()
 assert(SMODS.load_file("src/boosters.lua"))()
+assert(SMODS.load_file("src/edition.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
