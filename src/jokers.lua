@@ -1257,4 +1257,54 @@ SMODS.Joker{ --Hanging Chad
     end
 }
 
+
+SMODS.Joker{ --Ancient Clock
+    key = "clock",
+    config = {
+        extra = {
+            currentseconds = 0
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Ancient Clock',
+        ['text'] = {
+            [1] = '{C:blue}+3{} Chips per',
+            [2] = '{C:attention}real-time{} second',
+            [3] = '{C:inactive}(Curently{} {C:blue}+#1#{} {C:inactive}Chips){}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 4,
+        y = 2
+    },
+    soul_pos = {
+        x = 4,
+        y = 3
+    },
+    pixel_size = { w = 65, h = 65 },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {(os.date("*t", os.time()).sec) * 3}}
+    end,
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main  then
+                return {
+                    chips = (os.date("*t", os.time()).sec) * 3
+                }
+        end
+    end
+}
+
 -- Future addition : Some cardboard themed jokers
