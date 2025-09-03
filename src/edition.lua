@@ -1,5 +1,5 @@
 SMODS.Edition {
-    key = 'astral',
+    key = 'cosmic',
     loc_txt = {
         name = 'Cosmic',
         text = {
@@ -7,13 +7,14 @@ SMODS.Edition {
         },
         label = 'Cosmic',
     },
-    shader = 'astral',
-    weight = 16,
+    shader = 'cosmic',
+    weight = 5,
     in_shop = true,
-    extra_cost = 4,
+    extra_cost = 5,
+
+    sound = { sound = "kassandra_e_cosmic", per = 1.2, vol = 0.7 },
 
     apply_to_float = true,
-    badge_colour = HEX('263F61'),
     disable_shadow = false,
     disable_base_shader = false,
     unlocked = true,
@@ -21,32 +22,28 @@ SMODS.Edition {
     no_collection = false,
 
 	config = {
-		score = 800,
+		score = 1000,
         active = false,
     },
 
     loc_vars = function(self, info_queue, center)
 		return {
-			vars = {self.config.score, self.config.active}
+			vars = {self.config.score}
 		}
 	end,
 
     calculate = function(self, card, context)
-        if context.post_joker and not context.repetition then
-            self.config.active = true
-        end
-        if context.after and self.config.active == true then
+        if context.after == true then
 			G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,
 				func = function() 
 					G.GAME.chips = (to_big(G.GAME.chips))+(to_big(self.config.score))
 					G.HUD:get_UIE_by_ID('chip_UI_count'):juice_up(0.3, 0.3)
-					play_sound('gong')
-                    self.config.active = false
+					play_sound('kassandra_score')
 					return true
 				end,
 			}))
             return {
-				message = "X" .. tostring(self.config.score),
+				message = "+" .. tostring(self.config.score),
 				colour = G.C.PURPLE
 			}
         end

@@ -1270,7 +1270,8 @@ SMODS.Joker{ --Ancient Clock
         ['text'] = {
             [1] = '{C:blue}+3{} Chips per',
             [2] = '{C:attention}real-time{} second',
-            [3] = '{C:inactive}(Curently{} {C:blue}+#1#{} {C:inactive}Chips){}'
+            [3] = '{C:inactive}(reset each minute){}',
+            [4] = '{C:inactive}(Curently{} {C:blue}+#1#{} {C:inactive}Chips){}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'

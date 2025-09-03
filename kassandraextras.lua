@@ -119,7 +119,7 @@ SMODS.Atlas({
 --SMODS.Shader({ key = 'monochrome', path = 'monochrome.fs' })
 
 -- From Cryptid
-SMODS.Shader({ key = 'astral', path = 'astral.fs' })
+SMODS.Shader({ key = 'cosmic', path = 'cosmic.fs' })
 --SMODS.Shader({ key = 'glitched_b', path = 'glitched_b.fs' })
 
 
@@ -131,6 +131,7 @@ assert(SMODS.load_file("src/edition.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
+assert(SMODS.load_file("src/sound.lua"))()
 assert(SMODS.load_file("src/spectrals.lua"))()
 assert(SMODS.load_file("src/tarots.lua"))()
 assert(SMODS.load_file("src/zodiac.lua"))()
