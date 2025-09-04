@@ -540,12 +540,12 @@ SMODS.Consumable { --Lynx
     soul_pos = { x = 1, y = 3 },
     pixel_size = { h = 63 },
     config = { extra = {
-        hand_size_value = 1
+        consumable_count = 1
     } },
     loc_txt = {
         name = 'Lynx',
         text = {
-        [1] = '{C:attention}+1{} Play Size'
+        [1] = 'Create a random {C:planet}Astrological{} Card'
     }
     },
     cost = 3,
@@ -555,15 +555,20 @@ SMODS.Consumable { --Lynx
     can_repeat_soul = false,
     use = function(self, card, area, copier)
         local used_card = copier or card
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
-                func = function()
-                    card_eval_status_text(used_card, 'extra', nil, nil, nil, {message = "+"..tostring(1).." Hand Size", colour = G.C.BLUE})
-                    SMODS.change_play_limit(1)
-                    return true
-                end
-            }))
+            for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        if G.consumeables.config.card_limit > #G.consumeables.cards then
+                            play_sound('timpani')
+                            SMODS.add_card({ set = 'astrological' })
+                            used_card:juice_up(0.3, 0.5)
+                        end
+                        return true
+                    end
+                }))
+            end
             delay(0.6)
     end,
     can_use = function(self, card)
