@@ -5,16 +5,6 @@ SMODS.Joker{ --Golden Bar
             dollars = 10
         }
     },
-    loc_txt = {
-        ['name'] = 'Golden Bar',
-        ['text'] = {
-            [1] = 'Earn {C:money}$10{} when',
-            [2] = '{C:attention}boss blind{} is defeated'
-        },
-        ['unlock'] = {
-            [1] = ''
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 0,
@@ -44,18 +34,6 @@ SMODS.Joker{ --Steel Bar
     config = {
         extra = {
             steelcardsindeck = 1
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Steel Bar',
-        ['text'] = {
-            [1] = 'Gives {X:chips,C:white}X0.05{} Chips',
-            [2] = 'for each {C:attention}Steel Card{}',
-            [3] = 'in your {C:attention} full deck{}',
-            [4] = '{C:inactive}(Currently{} {X:chips,C:white}X#1#{} {C:inactive}Chips){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -93,17 +71,6 @@ SMODS.Joker{ --Three-faces Even
             repetitions = 2
         }
     },
-    loc_txt = {
-        ['name'] = 'Three-faces Even',
-        ['text'] = {
-            [1] = 'Retrigger all cards with',
-            [2] = '{C:attention}even {}rank {C:attention}2{} additional times',
-            [3] = '{C:inactive}(10, 8, 6, 4, 2){}{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 2,
@@ -137,17 +104,6 @@ SMODS.Joker{ --Two-faces Odd
             repetitions = 1
         }
     },
-    loc_txt = {
-        ['name'] = 'Two-faces Odd',
-        ['text'] = {
-            [1] = 'Retrigger all cards with',
-            [2] = '{C:attention}odd {}rank {C:attention}1{} additional times',
-            [3] = '{C:inactive}(A, 9, 7, 5, 3){}{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 3,
@@ -178,16 +134,6 @@ SMODS.Joker{ --Crown
     key = "crown",
     config = {
         extra = {
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Crown',
-        ['text'] = {
-            [1] = 'Each {C:attention}Jack{} held in hand',
-            [2] = 'becomes a {C:attention}King{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -225,17 +171,6 @@ SMODS.Joker{ --Blank Joker
             Xmult = 5
         }
     },
-    loc_txt = {
-        ['name'] = 'Blank Joker',
-        ['text'] = {
-            [1] = 'Played {C:attention}blank {}cards',
-            [2] = 'give {X:mult,C:white}X5{} Mult',
-            [3] = 'when scored'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 5,
@@ -265,16 +200,6 @@ SMODS.Joker{ --Time Capsule
     key = "time_capsule",
     config = {
         extra = {
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Time Capsule',
-        ['text'] = {
-            [1] = '{C:attention}+1{} voucher in shop',
-            [2] = '{C:attention}+1{} booster pack in shop'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -311,17 +236,6 @@ SMODS.Joker{ --Sadey Face
         extra = {
             mult = 2,
             mult2 = 2
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Sadey Face',
-        ['text'] = {
-            [1] = 'Played {C:orange}non-face{} cards',
-            [2] = 'give {C:mult}+2{} Mult',
-            [3] = 'when scored'
-        },
-        ['unlock'] = {
-            [1] = ''
         }
     },
     atlas = 'Jokers',
@@ -361,17 +275,6 @@ SMODS.Joker{ --Oops! All 9s
             denominator = 0
         }
     },
-    loc_txt = {
-        ['name'] = 'Oops! All 9s',
-        ['text'] = {
-            [1] = 'Halves all {C:attention}listed{}',
-            [2] = '{C:green}probabilities{}',
-            [3] = '(ex: {C:green}1 in 3{} -> {C:green}1 in 6{})'
-        },
-        ['unlock'] = {
-            [1] = ''
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 8,
@@ -398,20 +301,9 @@ SMODS.Joker{ --Oops! All 9s
 }
 
 SMODS.Joker{ --Ghost Joker
-    key = "ghostjoker",
+    key = "ghost_joker",
     config = {
         extra = {
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Ghost Joker',
-        ['text'] = {
-            [1] = 'Adds one {C:attention}Ghost {}card',
-            [2] = 'to deck when',
-            [3] = '{C:attention}Blind {}is skipped'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -469,16 +361,6 @@ SMODS.Joker{ --Random Boss Blind
     key = "boss_blind",
     config = {
         extra = {
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Random Boss Blind',
-        ['text'] = {
-            [1] = 'Disable {C:attention}Boss Blind{} when',
-            [2] = 'a {C:green}probability {}{C:attention}failed{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -540,17 +422,6 @@ SMODS.Joker{ --Tiny Boss
             blind_size3 = 2
         }
     },
-    loc_txt = {
-        ['name'] = 'Tiny Boss',
-        ['text'] = {
-            [1] = 'Up to ante {C:red}8{}',
-            [2] = '{C:red}X2 {}{C:attention}Small {}and {C:attention}Big Blind{} Size',
-            [3] = '{C:red}X0.5{} {C:attention}Boss Blind{} size'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 1,
@@ -609,18 +480,6 @@ SMODS.Joker{ --Discard Trash Bin
             round = 0
         }
     },
-    loc_txt = {
-        ['name'] = 'Discard Trash Bin',
-        ['text'] = {
-            [1] = 'Add 1 {C:attention}discard{} for',
-            [2] = 'next round when any',
-            [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently{} {C:attention}+#1#{}{C:inactive}){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 2,
@@ -674,18 +533,6 @@ SMODS.Joker{ --Hand Trash Bin
         extra = {
             BoosterSkipped = 0,
             round = 0
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Hand Trash Bin',
-        ['text'] = {
-            [1] = 'Add 1 {C:attention}hand {}for',
-            [2] = 'next round when any',
-            [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently{} {C:attention}+#1#{}{C:inactive}){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -742,17 +589,6 @@ SMODS.Joker{ --Outline
             blankcardsindeck = 0
         }
     },
-    loc_txt = {
-        ['name'] = 'Outline',
-        ['text'] = {
-            [1] = 'Gives {C:blue}+100{} Chips for each',
-            [2] = '{C:attention}Blank Card{} in your full deck',
-            [3] = '{C:inactive}(Currently {C:blue}+#1#{} Chips){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 4,
@@ -785,17 +621,6 @@ SMODS.Joker{ --VHS Tape
     config = {
         extra = {
             ante_value = 1
-        }
-    },
-    loc_txt = {
-        ['name'] = 'VHS Tape',
-        ['text'] = {
-            [1] = 'If Game Over, prevents Death',
-            [2] = '{C:attention}-1{} ante',
-            [3] = '{C:red}self destructs{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -852,17 +677,6 @@ SMODS.Joker{ --Vecnas House
         extra = {
             odds = 2,
             odds2 = 2
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Vecnas House',
-        ['text'] = {
-            [1] = '{C:green}1 in 2{} chance to',
-            [2] = 'create copies of {C:attention}Ghost',
-            [3] = '{}cards when {C:attention}scored{} / {C:attention}discarded{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -933,16 +747,6 @@ SMODS.Joker{ --Showerhead
         extra = {
         }
     },
-    loc_txt = {
-        ['name'] = 'Showerhead',
-        ['text'] = {
-            [1] = 'All played {C:attention}Stone{} cards',
-            [2] = 'become {C:attention}Soap {}cards'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 7,
@@ -976,21 +780,6 @@ SMODS.Joker{ --Wallet
             DollarMult = 0,
             CoinChips = 0,
             odds = 2
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Wallet',
-        ['text'] = {
-            [1] = 'When {C:attention}Boss {}Blind is defeated',
-            [2] = '{C:green}1 in 2{} chance to add',
-            [3] = '{C:attention}1 Dollar{} card and',
-            [4] = '{C:attention}1 Coin seal{} card in deck',
-            [5] = '{C:red}+1{} Mult for each scored {C:attention}Dollar{} card',
-            [6] = '{C:blue}+2{} Chips for each scored {C:attention}Coin seal{}',
-            [7] = '{C:inactive}(Curently{} {C:red}+#1#{} {C:inactive}Mult and{} {C:blue}+#2#{} {C:inactive}Chips){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -1107,17 +896,6 @@ SMODS.Joker{ --Nobody
             blankcardsindeck = 1
         }
     },
-    loc_txt = {
-        ['name'] = 'Nobody',
-        ['text'] = {
-            [1] = 'Gives {C:red}^0.1{} Mult for each',
-            [2] = '{C:attention}Blank Card{} in your full deck',
-            [3] = '{C:inactive}(Currently {C:red}^#1#{} {C:inactive}Mult){}{}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 1,
@@ -1159,16 +937,6 @@ SMODS.Joker{ --STOP Sign
         extra = {
             discard_change = 0,
             blind_size = 0.75
-        }
-    },
-    loc_txt = {
-        ['name'] = 'STOP Sign',
-        ['text'] = {
-            [1] = '{C:red}X0.75{} {C:attention}Boss Blind{} size',
-            [2] = 'Play with {C:attention}0{} discards'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -1221,17 +989,6 @@ SMODS.Joker{ --Hanging Chad
             repetitions = 2
         }
     },
-    loc_txt = {
-        ['name'] = 'Hanging Chad',
-        ['text'] = {
-            [1] = 'Retrigger {C:attention}last{} played',
-            [2] = 'card used in scoring',
-            [3] = '{C:attention}2{} additional times'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
-        }
-    },
     atlas = 'Jokers',
     pos = {
         x = 3,
@@ -1263,18 +1020,6 @@ SMODS.Joker{ --Ancient Clock
     config = {
         extra = {
             currentseconds = 0
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Ancient Clock',
-        ['text'] = {
-            [1] = '{C:blue}+3{} Chips per',
-            [2] = '{C:attention}real-time{} second',
-            [3] = '{C:inactive}(reset each minute){}',
-            [4] = '{C:inactive}(Curently{} {C:blue}+#1#{} {C:inactive}Chips){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',
@@ -1314,17 +1059,6 @@ SMODS.Joker{ --AstroloJoker
     config = {
         extra = {
             astrological = 0
-        }
-    },
-    loc_txt = {
-        ['name'] = 'AstroloJoker',
-        ['text'] = {
-            [1] = 'Create an {C:planet}Astrological{} card',
-            [2] = 'when {C:orange}Blind{} is selected',
-            [3] = '{C:inactive}(Must have room){}'
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
         }
     },
     atlas = 'Jokers',

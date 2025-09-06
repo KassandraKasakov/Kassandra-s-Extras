@@ -251,6 +251,35 @@ SMODS.PokerHand { -- Full Manor
 }
 
 
+SMODS.PokerHand {
+    key = 'flush_manor',
+    mult = 16,
+    chips = 180,
+    l_mult = 4,
+    l_chips = 50,
+    loc_txt = {
+        name = 'Flush Manor',
+        description = {
+        [1] = 'A Four of a Kind and a Pair',
+        [2] = '6 cards required'
+    }
+    },
+    example = {
+        { 'S_T', true },
+        { 'S_T', true },
+        { 'S_7', true },
+        { 'S_7', true },
+        { 'S_7', true },
+        { 'S_7', true }
+    },
+    evaluate = function(parts, hand)
+        if #parts._4 < 1 or #parts._2 < 2 then return {} end
+        return #hand >= 6 and next(parts._2) and next(parts._4) and next(parts.mxms_s_flush)
+            and { SMODS.merge_lists(parts._all_pairs, parts.mxms_s_flush) } or {}
+    end
+}
+
+
 SMODS.PokerHand { -- Cliff
     key = 'cliff',
     mult = 5,

@@ -3,14 +3,6 @@ SMODS.Consumable { -- Space
     set = 'Tarot',
     atlas = 'Consumables',
     pos = { x = 0, y = 0 },
-    loc_txt = {
-        name = 'Space',
-        text = {
-        [1] = 'Enhances {C:attention}2{} selected',
-        [2] = 'cards into a',
-        [3] = '{C:attention}Blank Card{}'
-    }
-    },
     cost = 3,
     unlocked = true,
     discovered = false,
@@ -87,13 +79,6 @@ SMODS.Consumable {
     set = 'Tarot',
     atlas = 'Consumables',
     pos = { x = 1, y = 0 },
-    loc_txt = {
-        name = 'The Soap',
-        text = {
-        [1] = 'Enhances {C:attention}1{} selected card',
-        [2] = 'into a {C:attention}Soap Card{}'
-    }
-    },
     cost = 3,
     unlocked = true,
     discovered = true,

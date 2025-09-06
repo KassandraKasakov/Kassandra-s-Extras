@@ -1,12 +1,5 @@
 SMODS.Edition {
     key = 'cosmic',
-    loc_txt = {
-        name = 'Cosmic',
-        text = {
-            '{C:purple}+#1#{} Score',
-        },
-        label = 'Cosmic',
-    },
     shader = 'cosmic',
     weight = 5,
     in_shop = true,

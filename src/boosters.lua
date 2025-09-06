@@ -2,15 +2,6 @@ SMODS.Booster { -- Astro
     key = 'astro_pack',
     group_key = "k_astro_pack",
     kind = 'kassandra_Astro',
-    loc_txt = {
-        name = "Astro Pack",
-        text = {
-            "Choose {C:attention}1{} of up to",
-            "{C:attention}5{} {C:planet}Astrological{} cards to",
-            "be used immediately"
-        },
-        group_name = "Astro Pack"
-    },
     config = { extra = 5, choose = 1 },
     atlas = "Booster",
     pos = { x = 0, y = 0 },
@@ -86,15 +77,6 @@ SMODS.Booster { -- JUMBO Astro
     key = 'jumbo_astro_pack',
     group_key = "k_astro_pack",
     kind = 'kassandra_Astro',
-    loc_txt = {
-        name = "Jumbo Astro Pack",
-        text = {
-            "Choose {C:attention}1{} of up to",
-            "{C:attention}7{} {C:planet}Astrological{} cards to",
-            "be used immediately"
-        },
-        group_name = "Jumbo Astro Pack"
-    },
     config = { extra = 7, choose = 1 },
     cost = 6,
     atlas = "Booster",
@@ -171,15 +153,6 @@ SMODS.Booster { -- MEGA Astro
     key = 'mega_astro_pack',
     group_key = "k_astro_pack",
     kind = 'kassandra_Astro',
-    loc_txt = {
-        name = "Mega Astro Pack",
-        text = {
-            "Choose {C:attention}2{} of up to",
-            "{C:attention}7{} {C:planet}Astrological{} cards to",
-            "be used immediately"
-        },
-        group_name = "Mega Astro Pack"
-    },
     config = { extra = 7, choose = 2 },
     cost = 8,
     weight = 0.25,
@@ -264,15 +237,6 @@ SMODS.Booster { -- Zodiac
     key = 'zodiac_pack',
     group_key = "k_zodiac_pack",
     kind = 'kassandra_Zodiac',
-    loc_txt = {
-        name = "Zodiac Pack",
-        text = {
-            "Choose {C:attention}1{} of up to",
-            "{C:attention}5{} {C:planet}Zodiac{} cards to",
-            "be used immediately"
-        },
-        group_name = "Zodiac Pack"
-    },
     config = { extra = 5, choose = 1 },
     atlas = "Booster",
     pos = { x = 0, y = 1 },
@@ -320,15 +284,6 @@ SMODS.Booster { -- JUMBO Zodiac
     key = 'jumbo_zodiac_pack',
     group_key = "k_zodiac_pack",
     kind = 'kassandra_Zodiac',
-    loc_txt = {
-        name = "Jumbo Zodiac Pack",
-        text = {
-            "Choose {C:attention}1{} of up to",
-            "{C:attention}7{} {C:planet}Zodiac{} cards to",
-            "be used immediately"
-        },
-        group_name = "Jumbo Zodiac Pack"
-    },
     config = { extra = 7, choose = 1 },
     cost = 6,
     atlas = "Booster",
@@ -377,15 +332,6 @@ SMODS.Booster { -- MEGA Zodiac
     key = 'mega_zodiac_pack',
     group_key = "k_zodiac_pack",
     kind = 'kassandra_Zodiac',
-    loc_txt = {
-        name = "Mega Zodiac Pack",
-        text = {
-            "Choose {C:attention}2{} of up to",
-            "{C:attention}7{} {C:planet}Zodiac{} cards to",
-            "be used immediately"
-        },
-        group_name = "Mega Zodiac Pack"
-    },
     config = { extra = 7, choose = 2 },
     cost = 8,
     weight = 0.25,

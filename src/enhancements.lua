@@ -2,13 +2,6 @@ SMODS.Enhancement { --Blank Card
     key = 'blank',
     atlas = 'Enhancements',
     pos = { x = 0, y = 0 },
-    loc_txt = {
-        name = 'Blank Card',
-        text = {
-        [1] = 'Do {C:attention}nothing{}',
-        [2] = 'No rank or suit'
-    }
-    },
     any_suit = false,
     replace_base_card = true,
     no_rank = true,
@@ -26,15 +19,6 @@ SMODS.Enhancement { --Ghost Card
     config = {
         bonus = 15,
         mult = 4
-    },
-    loc_txt = {
-        name = 'Ghost Card',
-        text = {
-        [1] = '{C:blue}+15{} Chips',
-        [2] = '{C:red}+2{} Mult',
-        [3] = 'Disappear if {C:attention}discarded {}',
-        [4] = 'or if {C:attention}played{}'
-    }
     },
     any_suit = false,
     shatters = true,
@@ -71,15 +55,6 @@ SMODS.Enhancement { --Soap Card
             discardsremaining = 0
         }
     },
-    loc_txt = {
-        name = 'Soap Card',
-        text = {
-        [1] = '{C:blue}+10 X Hands{} Chips',
-        [2] = '{C:red}+Discards{} Mult',
-        [3] = 'while this card stays in hand',
-        [4] = '{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips and{} {C:red}+#2#{} {C:inactive}Mult){}'
-    }
-    },
     any_suit = false,
     replace_base_card = false,
     no_rank = false,
@@ -107,14 +82,6 @@ SMODS.Enhancement { -- Dollar Card
         extra = {
             dollars = 1
         }
-    },
-    loc_txt = {
-        name = 'Dollar Card',
-        text = {
-        [1] = '{C:money}-$1{} when played',
-        [2] = 'and scored',
-        [3] = 'Add {C:red}+1{} Mult to {C:attention}Wallet{}'
-    }
     },
     any_suit = false,
     shatters = true,

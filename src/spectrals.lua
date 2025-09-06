@@ -3,14 +3,6 @@ SMODS.Consumable { -- Seal
     set = 'Spectral',
     atlas = 'Spectral',
     pos = { x = 0, y = 0 },
-    loc_txt = {
-        name = 'Seal',
-        text = {
-        [1] = 'Add a {C:attention}random{} Seal',
-        [2] = 'up to 3 selected',
-        [3] = 'card in your hand'
-    }
-    },
     cost = 3,
     unlocked = true,
     discovered = true,

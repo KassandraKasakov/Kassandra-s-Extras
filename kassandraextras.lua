@@ -110,6 +110,16 @@ SMODS.Atlas({
 }):register()
 
 
+-- Planet atlas
+SMODS.Atlas({
+    key = "Planets", 
+    path = "planets.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+}):register()
+
+
 
 -- Shaders
 --SMODS.Shader({ key = 'anaglyphic', path = 'anaglyphic.fs' })
@@ -130,6 +140,7 @@ assert(SMODS.load_file("src/boosters.lua"))()
 assert(SMODS.load_file("src/edition.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/jokers.lua"))()
+assert(SMODS.load_file("src/planets.lua"))()
 assert(SMODS.load_file("src/pokerhands.lua"))()
 assert(SMODS.load_file("src/seals.lua"))()
 assert(SMODS.load_file("src/sound.lua"))()
