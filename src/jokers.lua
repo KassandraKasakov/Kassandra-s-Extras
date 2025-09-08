@@ -1099,4 +1099,48 @@ SMODS.Joker{ --AstroloJoker
     end
 }
 
+
+SMODS.Joker{ --Extra Hand
+    key = "extra_hand",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Extra Hand',
+        ['text'] = {
+            [1] = 'You can {C:attention}select {}',
+            [2] = '{C:attention}one {}more card'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    atlas = 'Jokers',
+    pos = {
+        x = 6,
+        y = 2
+    },
+    cost = 5,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+
+    calculate = function(self, card, context)
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(1)
+        SMODS.change_discard_limit(1)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(-1)
+        SMODS.change_discard_limit(-1)
+    end
+}
+
 -- Future addition : Some cardboard themed jokers
