@@ -75,7 +75,7 @@ SMODS.PokerHand { -- Triple Pair
     evaluate = function(parts, hand)
         return #parts._2 >= 3 and parts._all_pairs or {}
     end
-}
+} -- Planet : Glacio
 
 
 SMODS.PokerHand { -- Flush Triple Pair
@@ -105,7 +105,7 @@ SMODS.PokerHand { -- Flush Triple Pair
         return #parts._2 == 3 and next(parts.kassandra_6_flush) and
             { SMODS.merge_lists(parts._all_pairs, parts.kassandra_6_flush) } or {}
     end
-}
+} -- Planet : Vesania
 
 
 SMODS.PokerHand { -- Double Three of a Kind
@@ -132,10 +132,10 @@ SMODS.PokerHand { -- Double Three of a Kind
     evaluate = function(parts, hand)
         return #parts._3 >= 2 and parts._all_pairs or {}
     end
-}
+} -- Planet : Volcana
 
 
-SMODS.PokerHand {
+SMODS.PokerHand { -- Flush Double Three of a Kind
     key = 'flush_double_three_of_a_kind',
     mult = 16,
     chips = 170,
@@ -162,7 +162,7 @@ SMODS.PokerHand {
         return #parts._3 >= 2 and next(parts.kassandra_6_flush)
             and { SMODS.merge_lists(parts._all_pairs, parts.kassandra_6_flush) } or {}
     end
-}
+} -- Planet : Holo
 
 
 SMODS.PokerHand { -- Six of a Kind
@@ -189,7 +189,7 @@ SMODS.PokerHand { -- Six of a Kind
     evaluate = function(parts, hand)
         return next(parts.kassandra_6) and parts.kassandra_6 or {}
     end
-}
+} -- Planet : Calidor
 
 
 SMODS.PokerHand { -- Flush Six
@@ -216,10 +216,10 @@ SMODS.PokerHand { -- Flush Six
 
     },
     evaluate = function(parts, hand)
-        return next(parts.mxms_6) and next(parts.mxms_s_flush)
+        return next(parts.kassandra_6) and next(parts.kassandra_6_flush)
             and { SMODS.merge_lists(parts.kassandra_6, parts.kassandra_6_flush) } or {}
     end
-}
+} -- Planet : Crimson
 
 
 SMODS.PokerHand { -- Full Manor
@@ -248,10 +248,10 @@ SMODS.PokerHand { -- Full Manor
         return #hand >= 6 and next(parts._2) and next(parts._4) and
             { SMODS.merge_lists(parts._all_pairs) } or {}
     end
-}
+} -- Planet : Cholgan
 
 
-SMODS.PokerHand {
+SMODS.PokerHand { -- Flush Manor
     key = 'flush_manor',
     mult = 16,
     chips = 180,
@@ -274,10 +274,10 @@ SMODS.PokerHand {
     },
     evaluate = function(parts, hand)
         if #parts._4 < 1 or #parts._2 < 2 then return {} end
-        return #hand >= 6 and next(parts._2) and next(parts._4) and next(parts.mxms_s_flush)
-            and { SMODS.merge_lists(parts._all_pairs, parts.mxms_s_flush) } or {}
+        return #hand >= 6 and next(parts._2) and next(parts._4) and next(parts.kassandra_6_flush)
+            and { SMODS.merge_lists(parts._all_pairs, parts.kassandra_6_flush) } or {}
     end
-}
+} -- Planet : Anaxes
 
 
 SMODS.PokerHand { -- Cliff
@@ -308,7 +308,7 @@ SMODS.PokerHand { -- Cliff
         end
         if #_stone >= 5 then return { _stone } end
     end
-}
+} -- Planet : Stone
 
 
 SMODS.PokerHand { -- Nothing
@@ -339,4 +339,4 @@ SMODS.PokerHand { -- Nothing
         end
         if #_blank >= 5 then return { _blank } end
     end
-}
+} -- Planet : Space
