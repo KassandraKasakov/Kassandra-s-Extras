@@ -15,8 +15,7 @@ SMODS.Edition {
     no_collection = false,
 
 	config = {
-		score = 1000,
-        active = false,
+		score = 2589,
     },
 
     loc_vars = function(self, info_queue, center)
